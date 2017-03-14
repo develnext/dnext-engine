@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>UX Engine - Sandbox</title>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script type="text/javascript" src="lib/ux-engine-0.1.0.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/javascript">
+      var button = new UX.Button('Hello World');
+      button.on('click', () => {
+        button.text = 'Hello Dmitriy!';
+      });
+
+      var page = new UX.Pane(button);
+
+      var app = new App(document.getElementById('root'));
+      app.show(page);
+    </script>
+  </body>
+</html>
