@@ -25,7 +25,9 @@ UX.Labeled
   UX.ToggleButton
  UX.Label
  UX.Checkbox
+UX.ImageView 
 UX.Container
  UX.AnchorPane
  UX.VBox
  UX.HBox
+```
