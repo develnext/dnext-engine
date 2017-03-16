@@ -9,7 +9,7 @@ var app = new UX.App('#root');
 
 var button = new UX.Button('Hello World');
 button.size = [100, 30];
-button.on('click', () => {
+button.on('click', function () {
    alert('Hi!');
 });
 
