@@ -5,22 +5,45 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="lib/ux-engine-0.1.0.js"></script>
+    <link rel="stylesheet" href="lib/dnext-engine-0.1.0.min.css">
+    <script type="text/javascript" src="lib/dnext-engine-0.1.0.js"></script>
   </head>
   <body>
     <div id="root"></div>
 
     <script type="text/javascript">
-      var button = new UX.Button('Hello World');
-      button.on('click', () => {
-        button.text = 'Hello Dmitriy!';
+      var image = new UX.ImageView('https://cdn1.iconfinder.com/data/icons/ampola-final-by-ampeross/256/html_icon.png');
+      image.size = [300, 300];
+      image.centered = true;
+      image.displayType = 'resized';
+
+      var check = new UX.Checkbox('Check It!');
+
+      var button = new UX.ToggleButton('<b>Hello</b> World');
+      button.textType = 'html';
+      button.x = 300;
+      button.on('click', (e) => {
+        check.checked = !check.checked;
+        app.log(e.sender);
       });
 
-      var page = new UX.Pane(button);
+      image.on('click', () => button.selected = !button.selected);
 
-      var app = new App(document.getElementById('root'));
-      app.show(page);
+      var app = new UX.App('#root');
+      var box = app.content = new UX.HBox(image, button, check);
+      box.insert(1, new UX.Button('Kitty'));
+      box.align = ['center', 'center'];
+      box.padding = 20;
+
+      app.log(box.children());
+
+      box.height = 500;
+      box.spacing = 20;
+
+      console.log(app.content.lookup('#button'));
     </script>
   </body>
 </html>

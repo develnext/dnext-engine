@@ -1,0 +1,29 @@
+label {
+  margin-bottom: 0;
+}
+
+.ux-checkbox {
+  font-weight: normal;
+}
+
+.ux-container {
+}
+
+.ux-anchor-pane {
+  position: relative;
+}
+
+.ux-v-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.ux-h-box {
+  display: flex;
+  flex-direction: row;
+}
+
+.ux-checkbox > input[type=checkbox] {
+  margin-top: 0;
+  vertical-align: middle;
+}
