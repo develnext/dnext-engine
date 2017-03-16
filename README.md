@@ -18,13 +18,14 @@ app.content = button; // show button in app content.
 
 ### Implemented
 
-1. UX.Node - base ui component.
-2. UX.Labeled
-  - UX.Button
-   - UX.ToggleButton
-  - UX.Label
-  - UX.Checkbox
-3. UX.Container
-  - UX.AnchorPane
-  - UX.VBox
-  - UX.HBox
+```js
+UX.Node // base ui component.
+UX.Labeled
+ UX.Button
+  UX.ToggleButton
+ UX.Label
+ UX.Checkbox
+UX.Container
+ UX.AnchorPane
+ UX.VBox
+ UX.HBox
