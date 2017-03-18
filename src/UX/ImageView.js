@@ -5,19 +5,31 @@ class ImageView extends Node {
   constructor(image) {
     super();
 
+    this.proportional = true;
+    this.displayType = 'origin';
+
     if (image !== undefined) {
       this.source = image;
     }
-
-    this.proportional = true;
   }
 
   get source() {
-    return this.dom.css('background-image');
+    var source = this.dom.css('background-image');
+
+    if (source) {
+      source = /^url\((['"]?)(.*)\1\)$/.exec(source);
+      return source ? source[2] : null;
+    }
+
+    return null;
   }
 
   set source(value) {
     this.dom.css({'background-image': `url('${value}')`});
+
+    if (this.displayType == 'origin') {
+      this.dom.find('img').attr('src', value);
+    }
   }
 
   get centered() {
@@ -33,6 +45,8 @@ class ImageView extends Node {
       case '100% 100%': return 'filled';
       case 'cover': return 'cropped';
       case 'resized': return 'resized';
+
+      case 'auto':
       case 'auto auto': return 'origin';
 
       default:
@@ -41,6 +55,8 @@ class ImageView extends Node {
   }
 
   set displayType(type) {
+    this.dom.find('img').remove();
+
     switch (type.toString().toLowerCase()) {
       case 'filled':
         this.dom.css('background-size', `100% 100%`);
@@ -52,7 +68,10 @@ class ImageView extends Node {
         this.dom.css('background-size', 'contain');
         break;
       case 'origin':
+        var source = this.source;
         this.dom.css('background-size', 'auto auto');
+        this.dom.append(jQuery('<img style="visibility: hidden" />'));
+        this.source = source;
         break;
     }
   }

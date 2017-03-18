@@ -1,4 +1,7 @@
-import App from './UX/App';
+import App from './NX/App';
+import Logger from './NX/Logger';
+import UILoader from './NX/UILoader';
+
 import Node from './UX/Node';
 import Button from './UX/Button';
 import ToggleButton from './UX/ToggleButton';
@@ -10,19 +13,26 @@ import HBox from './UX/HBox';
 import VBox from './UX/VBox';
 import AnchorPane from './UX/AnchorPane';
 import ImageView from './UX/ImageView';
+import TextInputControl from './UX/TextInputControl';
+import TextField from './UX/TextField';
+import TextArea from './UX/TextArea';
+
+
 import Font from './UX/paint/Font';
-import Utils from './UX/util/Utils'
+import Utils from './UX/util/Utils';
+
+window.NX = {
+  App, Logger, UILoader
+}
 
 window.UX = {
-  App,
-  Utils,
   Node,
   ImageView,
   Button, ToggleButton,
   Labeled,
   Label, Checkbox,
-  Container,
-  HBox, VBox, AnchorPane,
+  TextInputControl, TextField, TextArea,
+  Container, HBox, VBox, AnchorPane,
 
   Font
 }

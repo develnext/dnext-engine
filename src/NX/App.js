@@ -1,12 +1,14 @@
-import Utils from './util/Utils';
-import Container from './Container';
-import Node from './Node';
+import Utils from './../UX/util/Utils';
+import Container from './../UX/Container';
+import Node from './../UX/Node';
 
-import Logger from './../NX/Logger';
+import Logger from './Logger';
+import UILoader from './UILoader';
 
 class App {
   constructor(domElement) {
     this.logger = new Logger();
+    this.uiLoader = new UILoader();
     this._content = null;
 
     if (Utils.isElement(domElement)) {
@@ -33,8 +35,20 @@ class App {
     } else if (node === null) {
       this._content = null;
     } else {
-      throw new Error("Content property: must be instance of Node, " + node.constructor.name + " given");
+      if (node) {
+        throw new Error("Content property: must be instance of Node, " + (node.constructor ? node.constructor.name : typeof node) + " given");
+      } else {
+        throw new Error("Content property: must be instance of Node, undefined given");
+      }
     }
+  }
+
+  load(object) {
+    this.content = this.uiLoader.load(object);
+  }
+
+  loadUrl(url) {
+    this.content = this.uiLoader.loadFromUrl(url);
   }
 
   log(message) {

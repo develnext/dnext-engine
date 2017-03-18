@@ -73,8 +73,6 @@ class HBox extends Container {
 
   createSlotDom(object) {
     var dom = super.createSlotDom(object);
-    dom.css('display', 'inline-block');
-
     return dom;
   }
 }

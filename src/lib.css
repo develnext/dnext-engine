@@ -2,6 +2,18 @@ label {
   margin-bottom: 0;
 }
 
+.ux-labeled {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.ux-labeled-vertical {
+  flex-direction: column;
+}
+
 .ux-checkbox {
   font-weight: normal;
 }
@@ -18,12 +30,21 @@ label {
   flex-direction: column;
 }
 
+.ux-v-box .ux-slot {
+  display: block;
+}
+
 .ux-h-box {
   display: flex;
   flex-direction: row;
 }
 
+.ux-h-box .ux-slot {
+  display: inline-block;
+}
+
 .ux-checkbox > input[type=checkbox] {
   margin-top: 0;
+  margin-right: 4px;
   vertical-align: middle;
 }

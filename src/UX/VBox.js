@@ -29,7 +29,6 @@ class VBox extends Container {
 
   createSlotDom(object) {
     var dom = super.createSlotDom(object);
-    dom.css('display', 'block');
     return dom;
   }
 }

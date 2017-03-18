@@ -255,6 +255,18 @@ class Node {
       return this.dom.trigger(event, params);
     }
 
+    load(object) {
+      for (var prop in object) {
+        if (object.hasOwnProperty(prop)) {
+          const value = object[prop];
+
+          if (Object.getOwnPropertyDescriptor(this, prop)) {
+            this[prop] = value;
+          }
+        }
+      }
+    }
+
     static getFromDom(jqueryObject) {
         if (jqueryObject === null || jqueryObject.length === 0) {
             return null;

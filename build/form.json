@@ -1,0 +1,26 @@
+
+
+{
+  "*": "HBox",
+  "size": [400, 300],
+  "align": ["center", "center"],
+  "padding": 20,
+
+  "children": [
+    {
+      "*": "Button",
+      "id": "button1",
+      "text": "<b>Hello</b> World",
+      "textType": "html",
+      "graphic": "https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/16x16/Sunny.png"
+    },
+    {
+      "*": "ImageView",
+      "id": "imageView",
+      "size": [300, 300],
+      "centered": true,
+      "displayType": "resized",
+      "source": "https://cdn1.iconfinder.com/data/icons/ampola-final-by-ampeross/256/html_icon.png"
+    }
+  ]
+}
