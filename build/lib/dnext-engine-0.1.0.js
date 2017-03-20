@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\App.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"E:\\apps\\ux-engine\\src\\NX\\App.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -53,14 +53,9 @@ var App = function () {
   }
 
   _createClass(App, [{
-    key: 'load',
-    value: function load(object) {
-      this.content = this.uiLoader.load(object);
-    }
-  }, {
-    key: 'loadUrl',
-    value: function loadUrl(url) {
-      this.content = this.uiLoader.loadFromUrl(url);
+    key: 'showPage',
+    value: function showPage(page) {
+      page.showInApp(this);
     }
   }, {
     key: 'log',
@@ -95,7 +90,97 @@ var App = function () {
 
 exports.default = App;
 
-},{"./../UX/Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./../UX/util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js","./Logger":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Logger.js","./UILoader":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\UILoader.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Logger.js":[function(require,module,exports){
+},{"./../UX/Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./../UX/util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js","./Logger":"E:\\apps\\ux-engine\\src\\NX\\Logger.js","./UILoader":"E:\\apps\\ux-engine\\src\\NX\\UILoader.js"}],"E:\\apps\\ux-engine\\src\\NX\\Controller.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+exports.default = controller;
+
+var _Container = require('./../UX/Container');
+
+var _Container2 = _interopRequireDefault(_Container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var UI = function () {
+  function UI(node) {
+    _classCallCheck(this, UI);
+
+    this._node = node;
+
+    this.refresh(node);
+  }
+
+  _createClass(UI, [{
+    key: 'refresh',
+    value: function refresh(node) {
+      if (node instanceof _Container2.default) {
+        var children = node.children();
+
+        for (var i = 0; i < children.length; i++) {
+          var child = children[i];
+
+          if (child) {
+            var id = child.id;
+
+            if (id && !this[id]) {
+              this[id] = child;
+              this.refresh(child);
+            }
+          }
+        }
+      }
+    }
+  }]);
+
+  return UI;
+}();
+
+function controller(handlers) {
+  return function (node) {
+    var self = this;
+
+    this.node = node;
+    this.handlers = handlers;
+    this.ui = new UI(node);
+
+    var init = function init() {
+      for (var id in handlers) {
+        if (handlers.hasOwnProperty(id)) {
+          var sub = node.child(id);
+
+          if (sub) {
+            self.bind(sub, handlers[id]);
+          } else {
+            console.warn('Child \'' + id + '\' is not defined');
+          }
+        }
+      }
+    };
+
+    this.bind = function (node, handlers) {
+      for (var event in handlers) {
+        if (handlers.hasOwnProperty(event)) {
+          node.on(event, function (e) {
+            e.ui = self.ui;
+            handlers[event].call(self, e);
+          });
+        }
+      }
+    };
+
+    init();
+  };
+}
+
+},{"./../UX/Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\NX\\Logger.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -176,7 +261,37 @@ var Logger = function () {
 
 exports.default = Logger;
 
-},{}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\UILoader.js":[function(require,module,exports){
+},{}],"E:\\apps\\ux-engine\\src\\NX\\NX.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _App = require('./App');
+
+var _App2 = _interopRequireDefault(_App);
+
+var _Logger = require('./Logger');
+
+var _Logger2 = _interopRequireDefault(_Logger);
+
+var _Controller = require('./Controller');
+
+var _Controller2 = _interopRequireDefault(_Controller);
+
+var _UILoader = require('./UILoader');
+
+var _UILoader2 = _interopRequireDefault(_UILoader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  App: _App2.default, Logger: _Logger2.default, UILoader: _UILoader2.default,
+  controller: _Controller2.default
+};
+
+},{"./App":"E:\\apps\\ux-engine\\src\\NX\\App.js","./Controller":"E:\\apps\\ux-engine\\src\\NX\\Controller.js","./Logger":"E:\\apps\\ux-engine\\src\\NX\\Logger.js","./UILoader":"E:\\apps\\ux-engine\\src\\NX\\UILoader.js"}],"E:\\apps\\ux-engine\\src\\NX\\UILoader.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -195,6 +310,10 @@ var _Container = require('./../UX/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _UX = require('./../UX/UX');
+
+var _UX2 = _interopRequireDefault(_UX);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -206,34 +325,33 @@ var UILoader = function () {
 
   _createClass(UILoader, [{
     key: 'load',
-    value: function load(object) {
+    value: function load(object, controller) {
       if (object && (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === "object") {
-        var type = object['*'];
+        var type = object['_'];
 
         if (!type) {
-          throw new Error("Type is not defined in '*' property!");
+          throw new Error("Type is not defined in '_' property!");
         }
 
-        var cls = UX[type];
+        var cls = _UX2.default[type];
 
         if (!cls) {
           throw new Error('Type \'' + type + '\' is not defined');
         }
 
         var node = new cls();
-        cls.call(node);
 
         if (node instanceof _Node2.default) {
-          node.load(object);
-
-          if (node instanceof _Container2.default && jQuery.isArray(object['children'])) {
-            var children = object['children'];
+          if (node instanceof _Container2.default && jQuery.isArray(object['_content'])) {
+            var children = object['_content'];
 
             for (var i = 0; i < children.length; i++) {
-              var child = this.load(children[i]);
+              var child = this.load(children[i], controller);
               node.add(child);
             }
           }
+
+          node.load(object, controller);
 
           return node;
         } else {
@@ -243,20 +361,16 @@ var UILoader = function () {
     }
   }, {
     key: 'loadFromJson',
-    value: function loadFromJson(jsonString) {
-      return this.load(JSON.parse(jsonString));
+    value: function loadFromJson(jsonString, controller) {
+      return this.load(JSON.parse(jsonString), controller);
     }
   }, {
     key: 'loadFromUrl',
-    value: function loadFromUrl(urlToJson, callback) {
+    value: function loadFromUrl(urlToJson, callback, controller) {
       var _this = this;
 
-      $.get(urlToJson, function (data) {
-        _this.load(data);
-
-        if (callback) {
-          callback();
-        }
+      jQuery.getJSON(urlToJson, function (data) {
+        callback(_this.load(data, controller));
       });
     }
   }]);
@@ -266,7 +380,7 @@ var UILoader = function () {
 
 exports.default = UILoader;
 
-},{"./../UX/Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\AnchorPane.js":[function(require,module,exports){
+},{"./../UX/Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./../UX/UX":"E:\\apps\\ux-engine\\src\\UX\\UX.js"}],"E:\\apps\\ux-engine\\src\\UX\\AnchorPane.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -333,7 +447,7 @@ var AnchorPane = function (_Container) {
 
 exports.default = AnchorPane;
 
-},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Button.js":[function(require,module,exports){
+},{"./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\Button.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -382,7 +496,7 @@ var Button = function (_Labeled) {
 
 exports.default = Button;
 
-},{"./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Checkbox.js":[function(require,module,exports){
+},{"./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js"}],"E:\\apps\\ux-engine\\src\\UX\\Checkbox.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -443,7 +557,7 @@ var Checkbox = function (_Labeled) {
 
 exports.default = Checkbox;
 
-},{"./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js":[function(require,module,exports){
+},{"./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js"}],"E:\\apps\\ux-engine\\src\\UX\\Container.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -499,6 +613,17 @@ var Container = function (_Node) {
       dom.addClass('ux-container');
 
       return dom;
+    }
+  }, {
+    key: 'child',
+    value: function child(id) {
+      var dom = this.dom.find('#' + id);
+
+      if (dom && dom.length) {
+        return _Node3.default.getFromDom(dom);
+      }
+
+      return null;
     }
   }, {
     key: 'children',
@@ -591,7 +716,7 @@ var Container = function (_Node) {
 
 exports.default = Container;
 
-},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\HBox.js":[function(require,module,exports){
+},{"./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js"}],"E:\\apps\\ux-engine\\src\\UX\\HBox.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -639,6 +764,18 @@ var HBox = function (_Container) {
     value: function createSlotDom(object) {
       var dom = _get(HBox.prototype.__proto__ || Object.getPrototypeOf(HBox.prototype), 'createSlotDom', this).call(this, object);
       return dom;
+    }
+  }, {
+    key: 'add',
+    value: function add(nodes) {
+      _get(HBox.prototype.__proto__ || Object.getPrototypeOf(HBox.prototype), 'add', this).apply(this, arguments);
+      this.spacing = this.spacing;
+    }
+  }, {
+    key: 'insert',
+    value: function insert(index, nodes) {
+      _get(HBox.prototype.__proto__ || Object.getPrototypeOf(HBox.prototype), 'insert', this).apply(this, arguments);
+      this.spacing = this.spacing;
     }
   }, {
     key: 'spacing',
@@ -707,7 +844,7 @@ var HBox = function (_Container) {
 
 exports.default = HBox;
 
-},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ImageView.js":[function(require,module,exports){
+},{"./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\ImageView.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -833,7 +970,7 @@ var ImageView = function (_Node) {
 
 exports.default = ImageView;
 
-},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Label.js":[function(require,module,exports){
+},{"./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js"}],"E:\\apps\\ux-engine\\src\\UX\\Label.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -866,10 +1003,7 @@ var Label = function (_Labeled) {
     _createClass(Label, [{
         key: 'createDom',
         value: function createDom() {
-            var dom = jQuery('<span><span class="ux-labeled-text"></span></span>');
-            dom.addClass('ux-labeled');
-            dom.addClass('ux-label');
-            dom.addClass('label');
+            var dom = jQuery('<span class="ux-labeled ux-label"><span class="ux-labeled-text"></span></span>');
             return dom;
         }
     }]);
@@ -879,7 +1013,7 @@ var Label = function (_Labeled) {
 
 exports.default = Label;
 
-},{"./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js":[function(require,module,exports){
+},{"./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js"}],"E:\\apps\\ux-engine\\src\\UX\\Labeled.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1110,7 +1244,7 @@ var Labeled = function (_Node) {
 
 exports.default = Labeled;
 
-},{"./ImageView":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ImageView.js","./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./paint/Font":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js":[function(require,module,exports){
+},{"./ImageView":"E:\\apps\\ux-engine\\src\\UX\\ImageView.js","./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./paint/Font":"E:\\apps\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\Node.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1287,6 +1421,9 @@ var Node = function () {
             return this;
         }
     }, {
+        key: "bind",
+        value: function bind(handlers) {}
+    }, {
         key: "off",
         value: function off(event) {
             this.dom.off(event);
@@ -1298,14 +1435,39 @@ var Node = function () {
             return this.dom.trigger(event, params);
         }
     }, {
+        key: "child",
+        value: function child(id) {
+            return null;
+        }
+    }, {
         key: "load",
-        value: function load(object) {
+        value: function load(object, controller) {
             for (var prop in object) {
                 if (object.hasOwnProperty(prop)) {
+                    if (prop[0] == '_') {
+                        continue;
+                    }
+
                     var value = object[prop];
 
-                    if (Object.getOwnPropertyDescriptor(this, prop)) {
-                        this[prop] = value;
+                    switch (prop) {
+                        case 'on':
+                            if (controller) {
+                                for (var event in value) {
+
+                                    if (value.hasOwnProperty(event)) {
+                                        var handler = value[event];
+                                        if (typeof controller[handler] === 'function') {
+                                            this.on(event, controller[handler].bind(controller));
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+
+                        default:
+                            this[prop] = value;
+                            break;
                     }
                 }
             }
@@ -1456,6 +1618,14 @@ var Node = function () {
         set: function set(value) {
             this.dom.data('--user-data', value);
         }
+    }, {
+        key: "controller",
+        get: function get() {
+            return this._controller;
+        },
+        set: function set(object) {
+            this._controller = object;
+        }
     }], [{
         key: "getFromDom",
         value: function getFromDom(jqueryObject) {
@@ -1477,7 +1647,162 @@ var Node = function () {
 
 exports.default = Node;
 
-},{"./util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextArea.js":[function(require,module,exports){
+},{"./util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\Page.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _UILoader = require('./../NX/UILoader');
+
+var _UILoader2 = _interopRequireDefault(_UILoader);
+
+var _Container = require('./Container');
+
+var _Container2 = _interopRequireDefault(_Container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Page = function () {
+  function Page(uiResource) {
+    _classCallCheck(this, Page);
+
+    this.uiLoader = new _UILoader2.default();
+    this.ui = {};
+    this._content = null;
+
+    this.load(uiResource);
+  }
+
+  _createClass(Page, [{
+    key: 'bindOne',
+    value: function bindOne(id, handler) {
+      var _this = this;
+
+      if (this._binds) {
+        this._binds[id] = handler;
+      } else {
+        this._binds = {};
+        this._binds[id] = handler;
+      }
+
+      if (this._content) {
+        var sub = this._content.child(id);
+
+        if (sub) {
+          for (var event in handler) {
+            if (handler.hasOwnProperty(event)) {
+              sub.on(event, function (e) {
+                handler[event].call(_this, e);
+              });
+            }
+          }
+        } else {
+          console.warn('Child \'' + id + '\' is not defined');
+        }
+      }
+    }
+  }, {
+    key: 'bind',
+    value: function bind(handlers) {
+      this._binds = handlers;
+
+      if (this._content) {
+        for (var id in handlers) {
+          if (handlers.hasOwnProperty(id)) {
+            this.bindOne(id, handlers[id]);
+          }
+        }
+      }
+    }
+  }, {
+    key: 'load',
+    value: function load(uiResource) {
+      var _this2 = this;
+
+      if (uiResource instanceof String || typeof uiResource === 'string') {
+        this.uiLoader.loadFromUrl(uiResource, function (node) {
+          _this2._content = node;
+          _this2.afterLoad();
+        }, this);
+      } else {
+        this._content = this.uiLoader.load(uiResource, this);
+        this.afterLoad();
+      }
+    }
+  }, {
+    key: 'afterLoad',
+    value: function afterLoad() {
+      if (this._binds) {
+        this.bind(this._binds);
+      }
+
+      this._refreshUi();
+
+      if (this._app) {
+        this._app.content = this._content;
+      }
+    }
+  }, {
+    key: '_refreshUi',
+    value: function _refreshUi() {
+      this.ui = {};
+
+      var self = this;
+
+      var refresh = function refresh(node) {
+        if (node instanceof _Container2.default) {
+          var children = node.children();
+
+          for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+
+            if (child) {
+              var id = child.id;
+
+              if (id && !self.ui[id]) {
+                self.ui[id] = child;
+                refresh(child);
+              }
+            }
+          }
+        }
+      };
+
+      refresh(this._content);
+
+      if (this._app) {
+        window.ui = this.ui;
+      }
+    }
+  }, {
+    key: 'showInApp',
+    value: function showInApp(app) {
+      this._app = app;
+
+      if (this._content) {
+        app.content = this._content;
+        window.ui = this.ui;
+      }
+    }
+  }, {
+    key: 'content',
+    get: function get() {
+      return this._content;
+    }
+  }]);
+
+  return Page;
+}();
+
+exports.default = Page;
+
+},{"./../NX/UILoader":"E:\\apps\\ux-engine\\src\\NX\\UILoader.js","./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\TextArea.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1520,7 +1845,7 @@ var TextArea = function (_TextInputControl) {
 
 exports.default = TextArea;
 
-},{"./TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextField.js":[function(require,module,exports){
+},{"./TextInputControl":"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js"}],"E:\\apps\\ux-engine\\src\\UX\\TextField.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1563,7 +1888,7 @@ var TextField = function (_TextInputControl) {
 
 exports.default = TextField;
 
-},{"./TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js":[function(require,module,exports){
+},{"./TextInputControl":"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js"}],"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1632,7 +1957,7 @@ var TextInputControl = function (_Node) {
 
 exports.default = TextInputControl;
 
-},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ToggleButton.js":[function(require,module,exports){
+},{"./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js"}],"E:\\apps\\ux-engine\\src\\UX\\ToggleButton.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1702,7 +2027,97 @@ var ToggleButton = function (_Button) {
 
 exports.default = ToggleButton;
 
-},{"./Button":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Button.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\VBox.js":[function(require,module,exports){
+},{"./Button":"E:\\apps\\ux-engine\\src\\UX\\Button.js"}],"E:\\apps\\ux-engine\\src\\UX\\UX.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Page = require('./Page');
+
+var _Page2 = _interopRequireDefault(_Page);
+
+var _Node = require('./Node');
+
+var _Node2 = _interopRequireDefault(_Node);
+
+var _Button = require('./Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _ToggleButton = require('./ToggleButton');
+
+var _ToggleButton2 = _interopRequireDefault(_ToggleButton);
+
+var _Labeled = require('./Labeled');
+
+var _Labeled2 = _interopRequireDefault(_Labeled);
+
+var _Label = require('./Label');
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _Checkbox = require('./Checkbox');
+
+var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+var _Container = require('./Container');
+
+var _Container2 = _interopRequireDefault(_Container);
+
+var _HBox = require('./HBox');
+
+var _HBox2 = _interopRequireDefault(_HBox);
+
+var _VBox = require('./VBox');
+
+var _VBox2 = _interopRequireDefault(_VBox);
+
+var _AnchorPane = require('./AnchorPane');
+
+var _AnchorPane2 = _interopRequireDefault(_AnchorPane);
+
+var _ImageView = require('./ImageView');
+
+var _ImageView2 = _interopRequireDefault(_ImageView);
+
+var _TextInputControl = require('./TextInputControl');
+
+var _TextInputControl2 = _interopRequireDefault(_TextInputControl);
+
+var _TextField = require('./TextField');
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _TextArea = require('./TextArea');
+
+var _TextArea2 = _interopRequireDefault(_TextArea);
+
+var _Font = require('./paint/Font');
+
+var _Font2 = _interopRequireDefault(_Font);
+
+var _Utils = require('./util/Utils');
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  Page: _Page2.default,
+  Node: _Node2.default,
+  ImageView: _ImageView2.default,
+  Button: _Button2.default, ToggleButton: _ToggleButton2.default,
+  Labeled: _Labeled2.default,
+  Label: _Label2.default, Checkbox: _Checkbox2.default,
+  TextInputControl: _TextInputControl2.default, TextField: _TextField2.default, TextArea: _TextArea2.default,
+  Container: _Container2.default, HBox: _HBox2.default, VBox: _VBox2.default, AnchorPane: _AnchorPane2.default,
+
+  Font: _Font2.default
+};
+
+},{"./AnchorPane":"E:\\apps\\ux-engine\\src\\UX\\AnchorPane.js","./Button":"E:\\apps\\ux-engine\\src\\UX\\Button.js","./Checkbox":"E:\\apps\\ux-engine\\src\\UX\\Checkbox.js","./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js","./HBox":"E:\\apps\\ux-engine\\src\\UX\\HBox.js","./ImageView":"E:\\apps\\ux-engine\\src\\UX\\ImageView.js","./Label":"E:\\apps\\ux-engine\\src\\UX\\Label.js","./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js","./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./Page":"E:\\apps\\ux-engine\\src\\UX\\Page.js","./TextArea":"E:\\apps\\ux-engine\\src\\UX\\TextArea.js","./TextField":"E:\\apps\\ux-engine\\src\\UX\\TextField.js","./TextInputControl":"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js","./ToggleButton":"E:\\apps\\ux-engine\\src\\UX\\ToggleButton.js","./VBox":"E:\\apps\\ux-engine\\src\\UX\\VBox.js","./paint/Font":"E:\\apps\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\VBox.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1763,6 +2178,54 @@ var VBox = function (_Container) {
       slots.css('margin-bottom', value + 'px');
       slots.last().css('margin-bottom', 0);
     }
+  }, {
+    key: 'horAlign',
+    get: function get() {
+      var align = this.dom.css('align-items');
+
+      switch (align) {
+        case 'flex-start':
+          return 'left';
+        case 'flex-end':
+          return 'right';
+      }
+
+      return align;
+    },
+    set: function set(value) {
+      switch (value) {
+        case 'left':
+          value = 'flex-start';break;
+        case 'right':
+          value = 'flex-end';break;
+      }
+
+      this.dom.css('align-items', value);
+    }
+  }, {
+    key: 'verAlign',
+    get: function get() {
+      var align = this.dom.css('justify-content');
+
+      switch (align) {
+        case 'flex-start':
+          return 'top';
+        case 'flex-end':
+          return 'bottom';
+      }
+
+      return align ? align : 'top';
+    },
+    set: function set(value) {
+      switch (value) {
+        case 'top':
+          value = 'flex-start';break;
+        case 'bottom':
+          value = 'flex-end';break;
+      }
+
+      this.dom.css('justify-content', value);
+    }
   }]);
 
   return VBox;
@@ -1770,7 +2233,7 @@ var VBox = function (_Container) {
 
 exports.default = VBox;
 
-},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\paint\\Font.js":[function(require,module,exports){
+},{"./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\paint\\Font.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1904,7 +2367,7 @@ var Font = function () {
 
 exports.default = Font;
 
-},{"./../util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js":[function(require,module,exports){
+},{"./../util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1947,103 +2410,22 @@ var Utils = function () {
 
 exports.default = Utils;
 
-},{}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\lib.js":[function(require,module,exports){
+},{}],"E:\\apps\\ux-engine\\src\\lib.js":[function(require,module,exports){
 'use strict';
 
-var _App = require('./NX/App');
+var _NX = require('./NX/NX');
 
-var _App2 = _interopRequireDefault(_App);
+var _NX2 = _interopRequireDefault(_NX);
 
-var _Logger = require('./NX/Logger');
+var _UX = require('./UX/UX');
 
-var _Logger2 = _interopRequireDefault(_Logger);
-
-var _UILoader = require('./NX/UILoader');
-
-var _UILoader2 = _interopRequireDefault(_UILoader);
-
-var _Node = require('./UX/Node');
-
-var _Node2 = _interopRequireDefault(_Node);
-
-var _Button = require('./UX/Button');
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _ToggleButton = require('./UX/ToggleButton');
-
-var _ToggleButton2 = _interopRequireDefault(_ToggleButton);
-
-var _Labeled = require('./UX/Labeled');
-
-var _Labeled2 = _interopRequireDefault(_Labeled);
-
-var _Label = require('./UX/Label');
-
-var _Label2 = _interopRequireDefault(_Label);
-
-var _Checkbox = require('./UX/Checkbox');
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _Container = require('./UX/Container');
-
-var _Container2 = _interopRequireDefault(_Container);
-
-var _HBox = require('./UX/HBox');
-
-var _HBox2 = _interopRequireDefault(_HBox);
-
-var _VBox = require('./UX/VBox');
-
-var _VBox2 = _interopRequireDefault(_VBox);
-
-var _AnchorPane = require('./UX/AnchorPane');
-
-var _AnchorPane2 = _interopRequireDefault(_AnchorPane);
-
-var _ImageView = require('./UX/ImageView');
-
-var _ImageView2 = _interopRequireDefault(_ImageView);
-
-var _TextInputControl = require('./UX/TextInputControl');
-
-var _TextInputControl2 = _interopRequireDefault(_TextInputControl);
-
-var _TextField = require('./UX/TextField');
-
-var _TextField2 = _interopRequireDefault(_TextField);
-
-var _TextArea = require('./UX/TextArea');
-
-var _TextArea2 = _interopRequireDefault(_TextArea);
-
-var _Font = require('./UX/paint/Font');
-
-var _Font2 = _interopRequireDefault(_Font);
-
-var _Utils = require('./UX/util/Utils');
-
-var _Utils2 = _interopRequireDefault(_Utils);
+var _UX2 = _interopRequireDefault(_UX);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-window.NX = {
-  App: _App2.default, Logger: _Logger2.default, UILoader: _UILoader2.default
-};
+window.NX = _NX2.default;
+window.UX = _UX2.default;
 
-window.UX = {
-  Node: _Node2.default,
-  ImageView: _ImageView2.default,
-  Button: _Button2.default, ToggleButton: _ToggleButton2.default,
-  Labeled: _Labeled2.default,
-  Label: _Label2.default, Checkbox: _Checkbox2.default,
-  TextInputControl: _TextInputControl2.default, TextField: _TextField2.default, TextArea: _TextArea2.default,
-  Container: _Container2.default, HBox: _HBox2.default, VBox: _VBox2.default, AnchorPane: _AnchorPane2.default,
-
-  Font: _Font2.default
-};
-
-},{"./NX/App":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\App.js","./NX/Logger":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Logger.js","./NX/UILoader":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\UILoader.js","./UX/AnchorPane":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\AnchorPane.js","./UX/Button":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Button.js","./UX/Checkbox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Checkbox.js","./UX/Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./UX/HBox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\HBox.js","./UX/ImageView":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ImageView.js","./UX/Label":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Label.js","./UX/Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js","./UX/Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./UX/TextArea":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextArea.js","./UX/TextField":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextField.js","./UX/TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js","./UX/ToggleButton":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ToggleButton.js","./UX/VBox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\VBox.js","./UX/paint/Font":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\paint\\Font.js","./UX/util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}]},{},["C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\lib.js"])
+},{"./NX/NX":"E:\\apps\\ux-engine\\src\\NX\\NX.js","./UX/UX":"E:\\apps\\ux-engine\\src\\UX\\UX.js"}]},{},["E:\\apps\\ux-engine\\src\\lib.js"])
 
 //# sourceMappingURL=dnext-engine-0.1.0.js.map

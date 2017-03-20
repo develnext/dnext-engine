@@ -4,10 +4,7 @@ import Labeled from './Labeled';
 class Label extends Labeled {
 
   createDom() {
-      var dom = jQuery('<span><span class="ux-labeled-text"></span></span>');
-      dom.addClass('ux-labeled');
-      dom.addClass('ux-label');
-      dom.addClass('label');
+      var dom = jQuery('<span class="ux-labeled ux-label"><span class="ux-labeled-text"></span></span>');
       return dom;
   }
 }

@@ -1,14 +1,15 @@
 import Node from './../UX/Node';
 import Container from './../UX/Container';
+import UX from './../UX/UX';
 
 class UILoader {
 
-  load(object) {
+  load(object, controller) {
     if (object && typeof object === "object") {
-      const type = object['*'];
+      const type = object['_'];
 
       if (!type) {
-        throw new Error("Type is not defined in '*' property!");
+        throw new Error("Type is not defined in '_' property!");
       }
 
       const cls = UX[type];
@@ -18,19 +19,18 @@ class UILoader {
       }
 
       const node = new cls();
-      cls.call(node);
 
       if (node instanceof Node) {
-        node.load(object);
-
-        if (node instanceof Container && jQuery.isArray(object['children'])) {
-          const children = object['children'];
+        if (node instanceof Container && jQuery.isArray(object['_content'])) {
+          const children = object['_content'];
 
           for (var i = 0; i < children.length; i++) {
-            const child = this.load(children[i]);
+            const child = this.load(children[i], controller);
             node.add(child);
           }
         }
+
+        node.load(object, controller);
 
         return node;
       } else {
@@ -39,17 +39,14 @@ class UILoader {
     }
   }
 
-  loadFromJson(jsonString) {
-    return this.load(JSON.parse(jsonString));
+  loadFromJson(jsonString, controller) {
+    return this.load(JSON.parse(jsonString), controller);
   }
 
-  loadFromUrl(urlToJson, callback) {
-    $.get(urlToJson, (data) => {
-        this.load(data);
+  loadFromUrl(urlToJson, callback, controller) {
 
-        if (callback) {
-          callback();
-        }
+    jQuery.getJSON(urlToJson, (data) => {
+        callback(this.load(data, controller));
     });
   }
 }

@@ -22,6 +22,29 @@ gulp.task('compile-css', function () {
   .pipe(gulp.dest('build/lib'));
 });
 
+gulp.task('compile-sandbox', function () {
+  let bundler = browserify('build/app/app.js', {
+        basedir: __dirname,
+        debug: true,
+        cache: {}, // required for watchify
+        packageCache: {}, // required for watchify
+        fullPaths: true,
+  });
+
+  bundler.transform("babelify", {presets: ['es2015']});
+
+  bundler.bundle()
+    .on('error', function (err) {
+        console.error(err);
+    })
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(gulpif(false, uglify()))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('build'));
+});
+
 gulp.task('compile', function() {
   let bundler = browserify('src/lib.js', {
         basedir: __dirname,
@@ -46,7 +69,7 @@ gulp.task('compile', function() {
 });
 
 gulp.task('watch', function () {
-    return watch(['src/**/*.js', 'src/**/*.css'], () => gulp.start('default'));
+    return watch(['src/**/*.js', 'src/**/*.css', 'build/app/**/*.js'], () => gulp.start('default'));
 });
 
 gulp.task('sandbox', function() {
@@ -57,4 +80,4 @@ gulp.task('sandbox', function() {
   });
 });
 
-gulp.task('default', ['compile', 'compile-css']);
+gulp.task('default', ['compile', 'compile-sandbox', 'compile-css']);

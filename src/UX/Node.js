@@ -137,6 +137,14 @@ class Node {
       this.dom.data('--user-data', value);
     }
 
+    get controller() {
+      return this._controller;
+    }
+
+    set controller(object) {
+      this._controller = object;
+    }
+
     createDom() {
         throw new Error("Cannot call abstract method createDom()");
     }
@@ -246,6 +254,10 @@ class Node {
       return this;
     }
 
+    bind(handlers) {
+
+    }
+
     off(event) {
       this.dom.off(event);
       return this;
@@ -255,13 +267,37 @@ class Node {
       return this.dom.trigger(event, params);
     }
 
-    load(object) {
+    child(id) {
+      return null;
+    }
+
+    load(object, controller) {
       for (var prop in object) {
         if (object.hasOwnProperty(prop)) {
+          if (prop[0] == '_') {
+            continue;
+          }
+
           const value = object[prop];
 
-          if (Object.getOwnPropertyDescriptor(this, prop)) {
-            this[prop] = value;
+          switch (prop) {
+            case 'on':
+              if (controller) {
+                for (var event in value) {
+
+                  if (value.hasOwnProperty(event)) {
+                    const handler = value[event];
+                    if (typeof controller[handler] === 'function') {
+                      this.on(event, controller[handler].bind(controller));
+                    }
+                  }
+                }
+              }
+              break;
+
+            default:
+              this[prop] = value;
+              break;
           }
         }
       }

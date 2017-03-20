@@ -75,6 +75,16 @@ class HBox extends Container {
     var dom = super.createSlotDom(object);
     return dom;
   }
+
+  add(nodes) {
+    super.add(...arguments);
+    this.spacing = this.spacing;
+  }
+
+  insert(index, nodes) {
+    super.insert(...arguments);
+    this.spacing = this.spacing;
+  }
 }
 
 export default HBox;

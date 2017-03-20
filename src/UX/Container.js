@@ -54,6 +54,16 @@ class Container extends Node {
     return dom;
   }
 
+  child(id) {
+    var dom = this.dom.find(`#${id}`);
+
+    if (dom && dom.length) {
+      return Node.getFromDom(dom);
+    }
+
+    return null;
+  }
+
   children() {
     var children = [];
 

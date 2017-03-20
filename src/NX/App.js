@@ -43,12 +43,8 @@ class App {
     }
   }
 
-  load(object) {
-    this.content = this.uiLoader.load(object);
-  }
-
-  loadUrl(url) {
-    this.content = this.uiLoader.loadFromUrl(url);
+  showPage(page) {
+    page.showInApp(this);
   }
 
   log(message) {
