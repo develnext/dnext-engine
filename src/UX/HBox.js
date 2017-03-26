@@ -6,6 +6,19 @@ class HBox extends Container {
     super(...arguments);
 
     this.spacing = 0;
+    this.align = ['top', 'left'];
+  }
+
+  get fitHeight() {
+    return this.dom.hasClass('ux-m-fit-height');
+  }
+
+  set fitHeight(value) {
+    if (value) {
+      this.dom.addClass('ux-m-fit-height');
+    } else {
+      this.dom.removeClass('ux-m-fit-height');
+    }
   }
 
   get spacing() {
@@ -18,50 +31,6 @@ class HBox extends Container {
 
     slots.css('margin-right', value + 'px');
     slots.last().css('margin-right', 0);
-  }
-
-  get horAlign() {
-    var align = this.dom.css('justify-content');
-
-    switch (align) {
-      case 'flex-start': return 'left';
-      case 'flex-end': return 'right';
-    }
-
-    return align;
-  }
-
-  set horAlign(value) {
-    switch (value) {
-      case 'left':
-        value = 'flex-start'; break;
-      case 'right':
-        value = 'flex-end'; break;
-    }
-
-    this.dom.css('justify-content', value);
-  }
-
-  get verAlign() {
-    var align = this.dom.css('align-items');
-
-    switch (align) {
-      case 'flex-start': return 'top';
-      case 'flex-end': return 'bottom';
-    }
-
-    return align ? align : 'top';
-  }
-
-  set verAlign(value) {
-    switch (value) {
-      case 'top':
-        value = 'flex-start'; break;
-      case 'bottom':
-        value = 'flex-end'; break;
-    }
-
-    this.dom.css('align-items', value);
   }
 
   createDom() {

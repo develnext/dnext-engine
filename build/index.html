@@ -2,8 +2,7 @@
   <head>
     <title>UX Engine - Sandbox</title>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
-
+    
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
@@ -15,22 +14,10 @@
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div data-fragment='MainPage'></div>
 
     <script type="text/javascript">
-      var app = new NX.App('#root');
-
-      app.showPage(new MainPage());
-
-      /*var box = app.content = new UX.HBox(image, button, field);
-      box.align = ['center', 'center'];
-      box.padding = 20;
-
-      app.log(box.children());
-
-      box.spacing = 20;
-
-      console.log(app.content.lookup('#button'));*/
+      NX.init();
     </script>
   </body>
 </html>

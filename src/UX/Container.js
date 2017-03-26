@@ -7,31 +7,50 @@ class Container extends Node {
   }
 
   get align() {
-    return [this.horAlign, this.verAlign];
+    return [this.verAlign, this.horAlign];
   }
 
   set align(value) {
     if (value instanceof Array && value.length >= 2) {
-      this.horAlign = value[0];
-      this.verAlign = value[1];
+      this.horAlign = value[1];
+      this.verAlign = value[0];
     }
   }
 
   get horAlign() {
-    return this.dom.css('text-align');
+    if (this.dom.hasClass('ux-m-halign-right')) {
+      return 'right';
+    } else if (this.hasClass('ux-m-halign-center')) {
+      return 'center';
+    }
+
+    return 'left';
   }
 
   set horAlign(value) {
-    this.dom.css('text-align', value);
+    this.dom.removeClass('ux-m-halign-left');
+    this.dom.removeClass('ux-m-halign-right');
+    this.dom.removeClass('ux-m-halign-center');
+
+    this.dom.addClass('ux-m-halign-' + value);
   }
 
   get verAlign() {
-    var align = this.dom.css('justify-content')
-    return align ? align : 'top';
+    if (this.dom.hasClass('ux-m-valign-bottom')) {
+      return 'bottom';
+    } else if (this.hasClass('ux-m-valign-center')) {
+      return 'center';
+    }
+
+    return 'top';
   }
 
   set verAlign(value) {
-    this.dom.css('justify-content', value);
+    this.dom.removeClass('ux-m-valign-top');
+    this.dom.removeClass('ux-m-valign-bottom');
+    this.dom.removeClass('ux-m-valign-center');
+
+    this.dom.addClass('ux-m-valign-' + value);
   }
 
   createSlotDom(object) {
@@ -64,6 +83,10 @@ class Container extends Node {
     return null;
   }
 
+  count() {
+    return this.dom.children().length;
+  }
+
   children() {
     var children = [];
 
@@ -72,6 +95,14 @@ class Container extends Node {
     });
 
     return children;
+  }
+
+  removeByIndex(index) {
+    var child = this.children()[index];
+    
+    if (child) {
+      child.free();
+    }
   }
 
   add(nodes) {

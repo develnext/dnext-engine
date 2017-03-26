@@ -83,6 +83,26 @@ class Font {
       if (font.underline) {
         dom.css('text-decoration', 'underline');
       }
+    } else if (typeof font === 'object') {
+      if (font['family']) {
+        dom.css('font-family', font.family);
+      }
+
+      if (font['size']) {
+        dom.css('font-size', font.size);
+      }
+
+      if (font['bold']) {
+        dom.css('font-weight', 'bold');
+      }
+
+      if (font['italic']) {
+        dom.css('font-style', 'italic');
+      }
+
+      if (font['underline']) {
+        dom.css('text-decoration', 'underline');
+      }
     }
   }
 

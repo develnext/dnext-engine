@@ -1,87 +1,31 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"E:\\apps\\ux-engine\\src\\NX\\App.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\App.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Utils = require('./../UX/util/Utils');
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _Container = require('./../UX/Container');
-
-var _Container2 = _interopRequireDefault(_Container);
-
-var _Node = require('./../UX/Node');
-
-var _Node2 = _interopRequireDefault(_Node);
 
 var _Logger = require('./Logger');
 
 var _Logger2 = _interopRequireDefault(_Logger);
-
-var _UILoader = require('./UILoader');
-
-var _UILoader2 = _interopRequireDefault(_UILoader);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var App = function () {
-  function App(domElement) {
+  function App() {
     _classCallCheck(this, App);
 
     this.logger = new _Logger2.default();
-    this.uiLoader = new _UILoader2.default();
-    this._content = null;
-
-    if (_Utils2.default.isElement(domElement)) {
-      this.dom = jQuery(domElement);
-    } else {
-      if (domElement instanceof jQuery) {
-        this.dom = domElement;
-      } else {
-        this.dom = jQuery(document).find(domElement).first();
-      }
-    }
   }
 
   _createClass(App, [{
-    key: 'showPage',
-    value: function showPage(page) {
-      page.showInApp(this);
-    }
-  }, {
     key: 'log',
     value: function log(message) {
       this.logger.info(message);
-    }
-  }, {
-    key: 'content',
-    get: function get() {
-      return this._content;
-    },
-    set: function set(node) {
-      this.dom.empty();
-
-      if (node instanceof _Node2.default) {
-        this._content = node;
-        this.dom.append(node.dom);
-      } else if (node === null) {
-        this._content = null;
-      } else {
-        if (node) {
-          throw new Error("Content property: must be instance of Node, " + (node.constructor ? node.constructor.name : typeof node === 'undefined' ? 'undefined' : _typeof(node)) + " given");
-        } else {
-          throw new Error("Content property: must be instance of Node, undefined given");
-        }
-      }
     }
   }]);
 
@@ -90,7 +34,7 @@ var App = function () {
 
 exports.default = App;
 
-},{"./../UX/Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./../UX/util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js","./Logger":"E:\\apps\\ux-engine\\src\\NX\\Logger.js","./UILoader":"E:\\apps\\ux-engine\\src\\NX\\UILoader.js"}],"E:\\apps\\ux-engine\\src\\NX\\Controller.js":[function(require,module,exports){
+},{"./Logger":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Logger.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Fragment.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -99,88 +43,190 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-exports.default = controller;
+var _UILoader = require('./UILoader');
+
+var _UILoader2 = _interopRequireDefault(_UILoader);
 
 var _Container = require('./../UX/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _Utils = require('./../UX/util/Utils');
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var UI = function () {
-  function UI(node) {
-    _classCallCheck(this, UI);
+var Fragment = function () {
+  function Fragment(uiResource) {
+    _classCallCheck(this, Fragment);
 
-    this._node = node;
+    this.uiLoader = new _UILoader2.default();
+    this.ui = {};
+    this._content = null;
 
-    this.refresh(node);
+    this.loadUi(uiResource);
   }
 
-  _createClass(UI, [{
-    key: 'refresh',
-    value: function refresh(node) {
-      if (node instanceof _Container2.default) {
-        var children = node.children();
+  _createClass(Fragment, [{
+    key: 'bindOne',
+    value: function bindOne(id, handler) {
+      var _this = this;
 
-        for (var i = 0; i < children.length; i++) {
-          var child = children[i];
+      if (this._binds) {
+        this._binds[id] = handler;
+      } else {
+        this._binds = {};
+        this._binds[id] = handler;
+      }
 
-          if (child) {
-            var id = child.id;
+      if (this._content) {
+        var sub = this._content.child(id);
 
-            if (id && !this[id]) {
-              this[id] = child;
-              this.refresh(child);
+        if (sub) {
+          for (var event in handler) {
+            if (handler.hasOwnProperty(event)) {
+              sub.on(event, function (e) {
+                handler[event].call(_this, e);
+              });
             }
+          }
+        } else {
+          console.warn('Child \'' + id + '\' is not defined');
+        }
+      }
+    }
+  }, {
+    key: 'bind',
+    value: function bind(handlers) {
+      this._binds = handlers;
+
+      if (this._content) {
+        for (var id in handlers) {
+          if (handlers.hasOwnProperty(id)) {
+            this.bindOne(id, handlers[id]);
           }
         }
       }
     }
-  }]);
+  }, {
+    key: 'loadUi',
+    value: function loadUi(uiResource) {
+      var _this2 = this;
 
-  return UI;
-}();
+      if (uiResource instanceof String || typeof uiResource === 'string') {
+        this.uiLoader.loadFromUrl(uiResource, function (node) {
+          _this2._content = node;
+          _this2.afterLoad();
+        }, this);
+      } else {
+        this._content = this.uiLoader.load(uiResource, this);
+        this.afterLoad();
+      }
+    }
+  }, {
+    key: 'afterLoad',
+    value: function afterLoad() {
+      if (this._binds) {
+        this.bind(this._binds);
+      }
 
-function controller(handlers) {
-  return function (node) {
-    var self = this;
+      this._refreshUi();
 
-    this.node = node;
-    this.handlers = handlers;
-    this.ui = new UI(node);
-
-    var init = function init() {
-      for (var id in handlers) {
-        if (handlers.hasOwnProperty(id)) {
-          var sub = node.child(id);
-
-          if (sub) {
-            self.bind(sub, handlers[id]);
-          } else {
-            console.warn('Child \'' + id + '\' is not defined');
+      if (this._rootDom) {
+        this._rootDom.empty().append(this._content.dom);
+      }
+    }
+  }, {
+    key: '_refreshUi',
+    value: function _refreshUi() {
+      if (this.ui) {
+        for (var key in this) {
+          if (this.ui.hasOwnProperty(key)) {
+            delete this[key];
           }
         }
       }
-    };
 
-    this.bind = function (node, handlers) {
-      for (var event in handlers) {
-        if (handlers.hasOwnProperty(event)) {
-          node.on(event, function (e) {
-            e.ui = self.ui;
-            handlers[event].call(self, e);
-          });
+      this.ui = {};
+
+      var self = this;
+
+      var refresh = function refresh(node) {
+        if (node instanceof _Container2.default) {
+          var children = node.children();
+
+          for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+
+            if (child) {
+              var id = child.id;
+
+              if (id && !self.ui[id]) {
+                self.ui[id] = child;
+              }
+
+              refresh(child);
+            }
+          }
+        }
+      };
+
+      refresh(this._content);
+
+      for (var key in this.ui) {
+        if (this.ui.hasOwnProperty(key)) {
+          this[key] = this.ui[key];
         }
       }
-    };
+    }
+  }, {
+    key: 'load',
+    value: function load(fragment) {
+      if (fragment instanceof Fragment) {
+        fragment.parent = this;
+        fragment.render(this._rootDom);
+      } else {
+        console.warn('load(): 1 argument must be an fragment instance');
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render(root) {
+      var dom;
 
-    init();
-  };
-}
+      if (_Utils2.default.isElement(root)) {
+        dom = jQuery(root);
+      } else {
+        if (root instanceof jQuery) {
+          dom = root;
+        } else {
+          dom = jQuery(document).find(root).first();
+        }
+      }
 
-},{"./../UX/Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\NX\\Logger.js":[function(require,module,exports){
+      this._rootDom = dom;
+
+      if (this._content) {
+        dom.children().detach();
+        dom.append(this._content.dom);
+      }
+    }
+  }, {
+    key: 'content',
+    get: function get() {
+      return this._content;
+    }
+  }]);
+
+  return Fragment;
+}();
+
+exports.default = Fragment;
+
+},{"./../UX/Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./../UX/util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js","./UILoader":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\UILoader.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Logger.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -261,7 +307,7 @@ var Logger = function () {
 
 exports.default = Logger;
 
-},{}],"E:\\apps\\ux-engine\\src\\NX\\NX.js":[function(require,module,exports){
+},{}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\NX.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -276,9 +322,9 @@ var _Logger = require('./Logger');
 
 var _Logger2 = _interopRequireDefault(_Logger);
 
-var _Controller = require('./Controller');
+var _Fragment = require('./Fragment');
 
-var _Controller2 = _interopRequireDefault(_Controller);
+var _Fragment2 = _interopRequireDefault(_Fragment);
 
 var _UILoader = require('./UILoader');
 
@@ -287,11 +333,34 @@ var _UILoader2 = _interopRequireDefault(_UILoader);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  App: _App2.default, Logger: _Logger2.default, UILoader: _UILoader2.default,
-  controller: _Controller2.default
+  App: _App2.default, Logger: _Logger2.default, UILoader: _UILoader2.default, Fragment: _Fragment2.default,
+
+  init: function init() {
+    var app = new _App2.default();
+
+    jQuery(document).find('[data-fragment]').each(function () {
+      var fragment = $(this).attr('data-fragment');
+
+      if (fragment) {
+        var cls = window[fragment];
+
+        if (!cls) {
+          console.warn(cls + ' cannot find global class for fragment');
+          return;
+        }
+
+        var fragment = new cls();
+        $(this).data('--wrapper', fragment);
+        fragment.render(this);
+      }
+    });
+
+    window.NX.app = app;
+    return app;
+  }
 };
 
-},{"./App":"E:\\apps\\ux-engine\\src\\NX\\App.js","./Controller":"E:\\apps\\ux-engine\\src\\NX\\Controller.js","./Logger":"E:\\apps\\ux-engine\\src\\NX\\Logger.js","./UILoader":"E:\\apps\\ux-engine\\src\\NX\\UILoader.js"}],"E:\\apps\\ux-engine\\src\\NX\\UILoader.js":[function(require,module,exports){
+},{"./App":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\App.js","./Fragment":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Fragment.js","./Logger":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Logger.js","./UILoader":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\UILoader.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\UILoader.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -380,7 +449,7 @@ var UILoader = function () {
 
 exports.default = UILoader;
 
-},{"./../UX/Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./../UX/UX":"E:\\apps\\ux-engine\\src\\UX\\UX.js"}],"E:\\apps\\ux-engine\\src\\UX\\AnchorPane.js":[function(require,module,exports){
+},{"./../UX/Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./../UX/Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./../UX/UX":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\UX.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\AnchorPane.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -447,11 +516,11 @@ var AnchorPane = function (_Container) {
 
 exports.default = AnchorPane;
 
-},{"./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\Button.js":[function(require,module,exports){
+},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Button.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -469,34 +538,59 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Button = function (_Labeled) {
-    _inherits(Button, _Labeled);
+  _inherits(Button, _Labeled);
 
-    function Button() {
-        _classCallCheck(this, Button);
+  function Button() {
+    _classCallCheck(this, Button);
 
-        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+  }
+
+  _createClass(Button, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = jQuery('<button><span class="ux-labeled-text"></span></button>');
+      dom.addClass('ux-labeled');
+      dom.addClass('ux-button');
+
+      dom.addClass('btn');
+      dom.addClass('btn-default');
+
+      return dom;
     }
+  }, {
+    key: 'kind',
+    get: function get() {
+      var dom = this.dom;
 
-    _createClass(Button, [{
-        key: 'createDom',
-        value: function createDom() {
-            var dom = jQuery('<button><span class="ux-labeled-text"></span></button>');
-            dom.addClass('ux-labeled');
-            dom.addClass('ux-button');
+      if (dom.hasClass('btn-primary')) {
+        return 'primary';
+      } else if (dom.hasClass('btn-success')) {
+        return 'success';
+      } else if (dom.hasClass('btn-info')) {
+        return 'info';
+      } else if (dom.hasClass('btn-warning')) {
+        return 'warning';
+      } else if (dom.hasClass('btn-danger')) {
+        return 'danger';
+      } else if (dom.hasClass('btn-link')) {
+        return 'link';
+      }
 
-            dom.addClass('btn');
-            dom.addClass('btn-default');
+      return 'default';
+    },
+    set: function set(value) {
+      this.dom.removeClass('btn-' + this.kind);
+      this.dom.addClass('btn-' + value);
+    }
+  }]);
 
-            return dom;
-        }
-    }]);
-
-    return Button;
+  return Button;
 }(_Labeled3.default);
 
 exports.default = Button;
 
-},{"./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js"}],"E:\\apps\\ux-engine\\src\\UX\\Checkbox.js":[function(require,module,exports){
+},{"./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Checkbox.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -557,7 +651,53 @@ var Checkbox = function (_Labeled) {
 
 exports.default = Checkbox;
 
-},{"./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js"}],"E:\\apps\\ux-engine\\src\\UX\\Container.js":[function(require,module,exports){
+},{"./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Combobox.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _SelectControl2 = require('./SelectControl');
+
+var _SelectControl3 = _interopRequireDefault(_SelectControl2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Combobox = function (_SelectControl) {
+  _inherits(Combobox, _SelectControl);
+
+  function Combobox() {
+    _classCallCheck(this, Combobox);
+
+    return _possibleConstructorReturn(this, (Combobox.__proto__ || Object.getPrototypeOf(Combobox)).apply(this, arguments));
+  }
+
+  _createClass(Combobox, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = _get(Combobox.prototype.__proto__ || Object.getPrototypeOf(Combobox.prototype), 'createDom', this).call(this);
+      dom.addClass('ux-combobox');
+      return dom;
+    }
+  }]);
+
+  return Combobox;
+}(_SelectControl3.default);
+
+exports.default = Combobox;
+
+},{"./SelectControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\SelectControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -626,6 +766,11 @@ var Container = function (_Node) {
       return null;
     }
   }, {
+    key: 'count',
+    value: function count() {
+      return this.dom.children().length;
+    }
+  }, {
     key: 'children',
     value: function children() {
       var children = [];
@@ -635,6 +780,15 @@ var Container = function (_Node) {
       });
 
       return children;
+    }
+  }, {
+    key: 'removeByIndex',
+    value: function removeByIndex(index) {
+      var child = this.children()[index];
+
+      if (child) {
+        child.free();
+      }
     }
   }, {
     key: 'add',
@@ -684,30 +838,49 @@ var Container = function (_Node) {
   }, {
     key: 'align',
     get: function get() {
-      return [this.horAlign, this.verAlign];
+      return [this.verAlign, this.horAlign];
     },
     set: function set(value) {
       if (value instanceof Array && value.length >= 2) {
-        this.horAlign = value[0];
-        this.verAlign = value[1];
+        this.horAlign = value[1];
+        this.verAlign = value[0];
       }
     }
   }, {
     key: 'horAlign',
     get: function get() {
-      return this.dom.css('text-align');
+      if (this.dom.hasClass('ux-m-halign-right')) {
+        return 'right';
+      } else if (this.hasClass('ux-m-halign-center')) {
+        return 'center';
+      }
+
+      return 'left';
     },
     set: function set(value) {
-      this.dom.css('text-align', value);
+      this.dom.removeClass('ux-m-halign-left');
+      this.dom.removeClass('ux-m-halign-right');
+      this.dom.removeClass('ux-m-halign-center');
+
+      this.dom.addClass('ux-m-halign-' + value);
     }
   }, {
     key: 'verAlign',
     get: function get() {
-      var align = this.dom.css('justify-content');
-      return align ? align : 'top';
+      if (this.dom.hasClass('ux-m-valign-bottom')) {
+        return 'bottom';
+      } else if (this.hasClass('ux-m-valign-center')) {
+        return 'center';
+      }
+
+      return 'top';
     },
     set: function set(value) {
-      this.dom.css('justify-content', value);
+      this.dom.removeClass('ux-m-valign-top');
+      this.dom.removeClass('ux-m-valign-bottom');
+      this.dom.removeClass('ux-m-valign-center');
+
+      this.dom.addClass('ux-m-valign-' + value);
     }
   }]);
 
@@ -716,7 +889,69 @@ var Container = function (_Node) {
 
 exports.default = Container;
 
-},{"./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js"}],"E:\\apps\\ux-engine\\src\\UX\\HBox.js":[function(require,module,exports){
+},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\FragmentPane.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Node2 = require('./Node');
+
+var _Node3 = _interopRequireDefault(_Node2);
+
+var _Fragment = require('./../NX/Fragment');
+
+var _Fragment2 = _interopRequireDefault(_Fragment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FragmentPane = function (_Node) {
+  _inherits(FragmentPane, _Node);
+
+  function FragmentPane() {
+    _classCallCheck(this, FragmentPane);
+
+    return _possibleConstructorReturn(this, (FragmentPane.__proto__ || Object.getPrototypeOf(FragmentPane)).call(this));
+  }
+
+  _createClass(FragmentPane, [{
+    key: 'createDom',
+    value: function createDom() {
+      return jQuery('<div class="ux-fragment-pane">');
+    }
+  }, {
+    key: 'content',
+    get: function get() {
+      this._content;
+    },
+    set: function set(fragment) {
+      if (fragment instanceof _Fragment2.default) {
+        this._content = fragment;
+      } else if (typeof fragment === 'string' || fragment instanceof String) {
+        this._content = new window[fragment]();
+      }
+
+      if (this._content) {
+        this._content.render(this.dom);
+      }
+    }
+  }]);
+
+  return FragmentPane;
+}(_Node3.default);
+
+exports.default = FragmentPane;
+
+},{"./../NX/Fragment":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\Fragment.js","./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\HBox.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -748,6 +983,7 @@ var HBox = function (_Container) {
     var _this = _possibleConstructorReturn(this, (HBox.__proto__ || Object.getPrototypeOf(HBox)).apply(this, arguments));
 
     _this.spacing = 0;
+    _this.align = ['top', 'left'];
     return _this;
   }
 
@@ -778,6 +1014,18 @@ var HBox = function (_Container) {
       this.spacing = this.spacing;
     }
   }, {
+    key: 'fitHeight',
+    get: function get() {
+      return this.dom.hasClass('ux-m-fit-height');
+    },
+    set: function set(value) {
+      if (value) {
+        this.dom.addClass('ux-m-fit-height');
+      } else {
+        this.dom.removeClass('ux-m-fit-height');
+      }
+    }
+  }, {
     key: 'spacing',
     get: function get() {
       return this._spacing;
@@ -789,54 +1037,6 @@ var HBox = function (_Container) {
       slots.css('margin-right', value + 'px');
       slots.last().css('margin-right', 0);
     }
-  }, {
-    key: 'horAlign',
-    get: function get() {
-      var align = this.dom.css('justify-content');
-
-      switch (align) {
-        case 'flex-start':
-          return 'left';
-        case 'flex-end':
-          return 'right';
-      }
-
-      return align;
-    },
-    set: function set(value) {
-      switch (value) {
-        case 'left':
-          value = 'flex-start';break;
-        case 'right':
-          value = 'flex-end';break;
-      }
-
-      this.dom.css('justify-content', value);
-    }
-  }, {
-    key: 'verAlign',
-    get: function get() {
-      var align = this.dom.css('align-items');
-
-      switch (align) {
-        case 'flex-start':
-          return 'top';
-        case 'flex-end':
-          return 'bottom';
-      }
-
-      return align ? align : 'top';
-    },
-    set: function set(value) {
-      switch (value) {
-        case 'top':
-          value = 'flex-start';break;
-        case 'bottom':
-          value = 'flex-end';break;
-      }
-
-      this.dom.css('align-items', value);
-    }
   }]);
 
   return HBox;
@@ -844,7 +1044,7 @@ var HBox = function (_Container) {
 
 exports.default = HBox;
 
-},{"./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\ImageView.js":[function(require,module,exports){
+},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ImageView.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -970,7 +1170,7 @@ var ImageView = function (_Node) {
 
 exports.default = ImageView;
 
-},{"./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js"}],"E:\\apps\\ux-engine\\src\\UX\\Label.js":[function(require,module,exports){
+},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Label.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1013,7 +1213,7 @@ var Label = function (_Labeled) {
 
 exports.default = Label;
 
-},{"./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js"}],"E:\\apps\\ux-engine\\src\\UX\\Labeled.js":[function(require,module,exports){
+},{"./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1059,6 +1259,7 @@ var Labeled = function (_Node) {
     _this.graphicTextGap = 4;
     _this.graphic = graphic;
     _this.text = text;
+    _this.align = ['center', 'center'];
     return _this;
   }
 
@@ -1068,7 +1269,54 @@ var Labeled = function (_Node) {
       return _Font2.default.getFromDom(this.dom);
     },
     set: function set(value) {
-      _Font2.default.applyToDom(value);
+      _Font2.default.applyToDom(this.dom, value);
+    }
+  }, {
+    key: 'align',
+    get: function get() {
+      return [this.verAlign, this.horAlign];
+    },
+    set: function set(value) {
+      if (value instanceof Array && value.length >= 2) {
+        this.horAlign = value[1];
+        this.verAlign = value[0];
+      }
+    }
+  }, {
+    key: 'horAlign',
+    get: function get() {
+      if (this.dom.hasClass('ux-m-halign-right')) {
+        return 'right';
+      } else if (this.hasClass('ux-m-halign-center')) {
+        return 'center';
+      }
+
+      return 'left';
+    },
+    set: function set(value) {
+      this.dom.removeClass('ux-m-halign-left');
+      this.dom.removeClass('ux-m-halign-right');
+      this.dom.removeClass('ux-m-halign-center');
+
+      this.dom.addClass('ux-m-halign-' + value);
+    }
+  }, {
+    key: 'verAlign',
+    get: function get() {
+      if (this.dom.hasClass('ux-m-valign-bottom')) {
+        return 'bottom';
+      } else if (this.hasClass('ux-m-valign-center')) {
+        return 'center';
+      }
+
+      return 'top';
+    },
+    set: function set(value) {
+      this.dom.removeClass('ux-m-valign-top');
+      this.dom.removeClass('ux-m-valign-bottom');
+      this.dom.removeClass('ux-m-valign-center');
+
+      this.dom.addClass('ux-m-valign-' + value);
     }
   }, {
     key: 'text',
@@ -1244,11 +1492,179 @@ var Labeled = function (_Node) {
 
 exports.default = Labeled;
 
-},{"./ImageView":"E:\\apps\\ux-engine\\src\\UX\\ImageView.js","./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./paint/Font":"E:\\apps\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\Node.js":[function(require,module,exports){
+},{"./ImageView":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ImageView.js","./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./paint/Font":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ListView.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _Container2 = require('./Container');
+
+var _Container3 = _interopRequireDefault(_Container2);
+
+var _Node = require('./Node');
+
+var _Node2 = _interopRequireDefault(_Node);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListView = function (_Container) {
+  _inherits(ListView, _Container);
+
+  function ListView() {
+    _classCallCheck(this, ListView);
+
+    var _this = _possibleConstructorReturn(this, (ListView.__proto__ || Object.getPrototypeOf(ListView)).call(this));
+
+    _this.spacing = 0;
+    _this.align = ['center', 'left'];
+    return _this;
+  }
+
+  _createClass(ListView, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = _get(ListView.prototype.__proto__ || Object.getPrototypeOf(ListView.prototype), 'createDom', this).call(this);
+      dom.addClass('list-group');
+      dom.addClass('ux-list-view');
+      return dom;
+    }
+  }, {
+    key: 'createSlotDom',
+    value: function createSlotDom(object) {
+      var _this2 = this;
+
+      if (!(object instanceof _Node2.default)) {
+        throw new TypeError('createSlotDom(): 1 argument must be instance of Node');
+      }
+
+      var dom = jQuery('<a href="#" class="list-group-item ux-slot" />').append(object.dom);
+
+      dom.on('click.ListView', function () {
+        dom.closest('.ux-list-view').find('> .ux-slot').removeClass('active');
+        dom.addClass('active');
+
+        _this2.dom.trigger('action');
+      });
+
+      dom.data('--wrapper', object);
+      object.dom.data('--wrapper-dom', dom);
+      return dom;
+    }
+  }, {
+    key: 'selectedIndex',
+    get: function get() {
+      var index = -1;
+      var result = -1;
+
+      this.dom.find('> .ux-slot').each(function () {
+        index++;
+
+        if ($(this).hasClass('active')) {
+          result = index;
+          return true;
+        }
+      });
+
+      return result;
+    },
+    set: function set(value) {
+      var children = this.children();
+
+      if (value >= 0 && value < children.length) {
+        this.selected = children[value];
+      } else {
+        this.selected = null;
+      }
+    }
+  }, {
+    key: 'selected',
+    get: function get() {
+      var dom = this.dom.find('> .ux-slot.active').first();
+
+      if (dom) {
+        return _Node2.default.getFromDom(dom);
+      }
+
+      return null;
+    },
+    set: function set(object) {
+      this.dom.find('> .ux-slot.active').removeClass('active');
+
+      if (object instanceof _Node2.default) {
+        object.dom.closest('.ux-slot').addClass('active');
+      }
+    }
+  }]);
+
+  return ListView;
+}(_Container3.default);
+
+exports.default = ListView;
+
+},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Listbox.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _SelectControl2 = require('./SelectControl');
+
+var _SelectControl3 = _interopRequireDefault(_SelectControl2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Listbox = function (_SelectControl) {
+  _inherits(Listbox, _SelectControl);
+
+  function Listbox() {
+    _classCallCheck(this, Listbox);
+
+    return _possibleConstructorReturn(this, (Listbox.__proto__ || Object.getPrototypeOf(Listbox)).apply(this, arguments));
+  }
+
+  _createClass(Listbox, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = _get(Listbox.prototype.__proto__ || Object.getPrototypeOf(Listbox.prototype), 'createDom', this).call(this);
+      dom.prop('multiple', true);
+      dom.addClass('ux-listbox');
+      return dom;
+    }
+  }]);
+
+  return Listbox;
+}(_SelectControl3.default);
+
+exports.default = Listbox;
+
+},{"./SelectControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\SelectControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1265,389 +1681,386 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Base HTML Node class.
  **/
 var Node = function () {
-    function Node(dom) {
-        _classCallCheck(this, Node);
+  function Node(dom) {
+    _classCallCheck(this, Node);
 
-        if (dom === undefined) {
-            this.dom = this.createDom();
+    if (dom === undefined) {
+      this.dom = this.createDom();
 
-            if (!(this.dom instanceof jQuery)) {
-                throw new Error("Method createDom() must return instance of an jQuery object");
-            }
-        } else {
-            if (dom instanceof jQuery) {
-                this.dom = dom;
-            } else {
-                throw new Error("Non-jquery object cannot be passed into Node.construct()");
-            }
-        }
-
-        this.dom.data('--wrapper', this);
+      if (!(this.dom instanceof jQuery)) {
+        throw new Error("Method createDom() must return instance of an jQuery object");
+      }
+    } else {
+      if (dom instanceof jQuery) {
+        this.dom = dom;
+      } else {
+        throw new Error("Non-jquery object cannot be passed into Node.construct()");
+      }
     }
 
-    _createClass(Node, [{
-        key: "createDom",
-        value: function createDom() {
-            throw new Error("Cannot call abstract method createDom()");
-        }
-    }, {
-        key: "requestFocus",
-        value: function requestFocus() {
-            this.focus();
-        }
-    }, {
-        key: "relocate",
-        value: function relocate(x, y) {
-            this.position = [x, y];
-        }
-    }, {
-        key: "resize",
-        value: function resize(width, height) {
-            this.size = [width, height];
-        }
-    }, {
-        key: "focus",
-        value: function focus() {
-            this.dom.focus();
-        }
-    }, {
-        key: "css",
-        value: function css(value) {
-            var _dom;
+    this.dom.data('--wrapper', this);
+  }
 
-            return (_dom = this.dom).css.apply(_dom, arguments);
-        }
-    }, {
-        key: "data",
-        value: function data(params) {
-            if (arguments.length === 1) {
-                var _dom2;
+  _createClass(Node, [{
+    key: "createDom",
+    value: function createDom() {
+      throw new Error("Cannot call abstract method createDom()");
+    }
+  }, {
+    key: "requestFocus",
+    value: function requestFocus() {
+      this.focus();
+    }
+  }, {
+    key: "relocate",
+    value: function relocate(x, y) {
+      this.position = [x, y];
+    }
+  }, {
+    key: "resize",
+    value: function resize(width, height) {
+      this.size = [width, height];
+    }
+  }, {
+    key: "focus",
+    value: function focus() {
+      this.dom.focus();
+    }
+  }, {
+    key: "css",
+    value: function css(value) {
+      var _dom;
 
-                return (_dom2 = this.dom).data.apply(_dom2, arguments);
-            } else {
-                var _dom3;
+      return (_dom = this.dom).css.apply(_dom, arguments);
+    }
+  }, {
+    key: "data",
+    value: function data(params) {
+      if (arguments.length === 1) {
+        var _dom2;
 
-                (_dom3 = this.dom).data.apply(_dom3, arguments);
-                return this;
-            }
-        }
-    }, {
-        key: "lookup",
-        value: function lookup(selector) {
-            var dom = this.dom.find(selector).first();
+        return (_dom2 = this.dom).data.apply(_dom2, arguments);
+      } else {
+        var _dom3;
 
-            if (dom) {
-                return Node.getFromDom(dom);
-            }
+        (_dom3 = this.dom).data.apply(_dom3, arguments);
+        return this;
+      }
+    }
+  }, {
+    key: "lookup",
+    value: function lookup(selector) {
+      var dom = this.dom.find(selector).first();
 
-            return null;
-        }
-    }, {
-        key: "lookupAll",
-        value: function lookupAll(selector) {
-            var _this = this;
+      if (dom) {
+        return Node.getFromDom(dom);
+      }
 
-            var nodes = [];
+      return null;
+    }
+  }, {
+    key: "lookupAll",
+    value: function lookupAll(selector) {
+      var _this = this;
 
-            this.dom.find(selector).each(function () {
-                nodes.push(Node.getFromDom(_this));
-            });
+      var nodes = [];
 
-            return nodes;
-        }
-    }, {
-        key: "toFront",
-        value: function toFront() {
-            var parent = this.parent;
+      this.dom.find(selector).each(function () {
+        nodes.push(Node.getFromDom(_this));
+      });
 
-            if (parent) {
-                if (parent['childToFront']) {
-                    parent.childToFront(this);
-                }
-            }
-        }
-    }, {
-        key: "toBack",
-        value: function toBack() {
-            var parent = this.parent;
+      return nodes;
+    }
+  }, {
+    key: "toFront",
+    value: function toFront() {
+      var parent = this.parent;
 
-            if (parent) {
-                if (parent['childToBack']) {
-                    parent.childToBack(this);
-                }
-            }
+      if (parent) {
+        if (parent['childToFront']) {
+          parent.childToFront(this);
         }
-    }, {
-        key: "free",
-        value: function free() {
-            var wrapperDom = this.dom.data('--wrapper-dom');
+      }
+    }
+  }, {
+    key: "toBack",
+    value: function toBack() {
+      var parent = this.parent;
 
-            if (wrapperDom) {
-                wrapperDom.dom.remove();
-            } else {
-                this.dom.detach();
-            }
+      if (parent) {
+        if (parent['childToBack']) {
+          parent.childToBack(this);
+        }
+      }
+    }
+  }, {
+    key: "free",
+    value: function free() {
+      var wrapperDom = this.dom.data('--wrapper-dom');
 
-            return this;
-        }
-    }, {
-        key: "show",
-        value: function show() {
-            this.dom.show();
-            return this;
-        }
-    }, {
-        key: "hide",
-        value: function hide() {
-            this.dom.hide();
-            return this;
-        }
-    }, {
-        key: "toggle",
-        value: function toggle() {
-            this.dom.toggle();
-            return this;
-        }
-    }, {
-        key: "on",
-        value: function on(event, callback) {
-            var _this2 = this;
+      if (wrapperDom) {
+        wrapperDom.remove();
+      } else {
+        this.dom.detach();
+      }
 
-            this.dom.on(event, function (event) {
-                event.sender = _this2;
-                callback.call(_this2, event);
-            });
+      return this;
+    }
+  }, {
+    key: "show",
+    value: function show() {
+      this.dom.show();
+      return this;
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      this.dom.hide();
+      return this;
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      this.dom.toggle();
+      return this;
+    }
+  }, {
+    key: "on",
+    value: function on(event, callback) {
+      var _this2 = this;
 
-            return this;
-        }
-    }, {
-        key: "bind",
-        value: function bind(handlers) {}
-    }, {
-        key: "off",
-        value: function off(event) {
-            this.dom.off(event);
-            return this;
-        }
-    }, {
-        key: "trigger",
-        value: function trigger(event, params) {
-            return this.dom.trigger(event, params);
-        }
-    }, {
-        key: "child",
-        value: function child(id) {
-            return null;
-        }
-    }, {
-        key: "load",
-        value: function load(object, controller) {
-            for (var prop in object) {
-                if (object.hasOwnProperty(prop)) {
-                    if (prop[0] == '_') {
-                        continue;
+      this.dom.on(event, function (event) {
+        event.sender = _this2;
+        callback.call(_this2, event);
+      });
+
+      return this;
+    }
+  }, {
+    key: "off",
+    value: function off(event) {
+      this.dom.off(event);
+      return this;
+    }
+  }, {
+    key: "trigger",
+    value: function trigger(event, params) {
+      return this.dom.trigger(event, params);
+    }
+  }, {
+    key: "child",
+    value: function child(id) {
+      return null;
+    }
+  }, {
+    key: "load",
+    value: function load(object, controller) {
+      for (var prop in object) {
+        if (object.hasOwnProperty(prop)) {
+          if (prop[0] == '_') {
+            continue;
+          }
+
+          var value = object[prop];
+
+          switch (prop) {
+            case 'on':
+              if (controller) {
+                for (var event in value) {
+
+                  if (value.hasOwnProperty(event)) {
+                    var handler = value[event];
+                    if (typeof controller[handler] === 'function') {
+                      this.on(event, controller[handler].bind(controller));
                     }
-
-                    var value = object[prop];
-
-                    switch (prop) {
-                        case 'on':
-                            if (controller) {
-                                for (var event in value) {
-
-                                    if (value.hasOwnProperty(event)) {
-                                        var handler = value[event];
-                                        if (typeof controller[handler] === 'function') {
-                                            this.on(event, controller[handler].bind(controller));
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-
-                        default:
-                            this[prop] = value;
-                            break;
-                    }
+                  }
                 }
-            }
-        }
-    }, {
-        key: "id",
-        get: function get() {
-            return this.dom.attr('id');
-        },
-        set: function set(value) {
-            this.dom.attr('id', value);
-        }
-    }, {
-        key: "visible",
-        get: function get() {
-            return this.dom.is(':visible');
-        },
-        set: function set(value) {
-            if (value) {
-                this.dom.show();
-            } else {
-                this.dom.hide();
-            }
-        }
-    }, {
-        key: "enabled",
-        get: function get() {
-            return !this.dom.prop("disabled");
-        },
-        set: function set(value) {
-            this.dom.prop('disabled', !value);
-        }
-    }, {
-        key: "focused",
-        get: function get() {
-            return this.dom.is(':focus');
-        }
-    }, {
-        key: "style",
-        get: function get() {
-            return this.dom.attr('style');
-        },
-        set: function set(value) {
-            this.dom.attr('style', value);
-        }
-    }, {
-        key: "x",
-        get: function get() {
-            return this.dom.position().left;
-        },
-        set: function set(value) {
-            this.dom.css({ left: value });
-        }
-    }, {
-        key: "y",
-        get: function get() {
-            return this.dom.position().top;
-        },
-        set: function set(value) {
-            this.dom.css({ top: value });
-        }
-    }, {
-        key: "position",
-        get: function get() {
-            return [this.x, this.y];
-        },
-        set: function set(value) {
-            if (value instanceof Array && value.length >= 2) {
-                this.x = value[0];
-                this.y = value[1];
-            }
-        }
-    }, {
-        key: "width",
-        get: function get() {
-            return this.dom.width();
-        },
-        set: function set(value) {
-            this.dom.width(value);
-        }
-    }, {
-        key: "height",
-        get: function get() {
-            return this.dom.height();
-        },
-        set: function set(value) {
-            this.dom.height(value);
-        }
-    }, {
-        key: "size",
-        get: function get() {
-            return [this.width, this.height];
-        },
-        set: function set(value) {
-            if (value instanceof Array && value.length >= 2) {
-                this.width = value[0];
-                this.height = value[1];
-            }
-        }
-    }, {
-        key: "padding",
-        get: function get() {
-            return [_Utils2.default.toPt(this.dom.css('padding-top')), _Utils2.default.toPt(this.dom.css('padding-right')), _Utils2.default.toPt(this.dom.css('padding-bottom')), _Utils2.default.toPt(this.dom.css('padding-left'))];
-        },
-        set: function set(value) {
-            if (value instanceof Array) {
-                if (value.length >= 4) {
-                    this.dom.css({
-                        'padding-top': value[0], 'padding-right': value[1],
-                        'padding-bottom': value[2], 'padding-left': value[3]
-                    });
-                } else if (value.length >= 2) {
-                    this.dom.css({
-                        'padding-top': value[0], 'padding-right': value[1],
-                        'padding-bottom': value[0], 'padding-left': value[1]
-                    });
-                } else if (value.length >= 1) {
-                    this.dom.css('padding', value[0]);
-                } else {
-                    this.dom.css('padding', 0);
-                }
-            } else {
-                this.dom.css('padding', value);
-            }
-        }
-    }, {
-        key: "parent",
-        get: function get() {
-            var parent = null;
+              }
+              break;
 
-            if (this.dom.data('--wrapper-dom')) {
-                parent = this.dom.data('--wrapper-dom').parent();
-            } else {
-                parent = this.dom.parent();
-            }
-
-            if (!parent) {
-                return null;
-            }
-
-            return Node.getFromDom(parent);
+            default:
+              this[prop] = value;
+              break;
+          }
         }
-    }, {
-        key: "userData",
-        get: function get() {
-            return this.dom.data('--user-data');
-        },
-        set: function set(value) {
-            this.dom.data('--user-data', value);
+      }
+    }
+  }, {
+    key: "id",
+    get: function get() {
+      return this.dom.attr('id');
+    },
+    set: function set(value) {
+      this.dom.attr('id', value);
+    }
+  }, {
+    key: "visible",
+    get: function get() {
+      return this.dom.is(':visible');
+    },
+    set: function set(value) {
+      if (value) {
+        this.dom.show();
+      } else {
+        this.dom.hide();
+      }
+    }
+  }, {
+    key: "opacity",
+    get: function get() {
+      return this.dom.css('opacity');
+    },
+    set: function set(value) {
+      this.dom.css('opacity', value);
+    }
+  }, {
+    key: "enabled",
+    get: function get() {
+      return !this.dom.prop("disabled");
+    },
+    set: function set(value) {
+      this.dom.prop('disabled', !value);
+    }
+  }, {
+    key: "focused",
+    get: function get() {
+      return this.dom.is(':focus');
+    }
+  }, {
+    key: "x",
+    get: function get() {
+      return this.dom.position().left;
+    },
+    set: function set(value) {
+      this.dom.css({ left: value });
+    }
+  }, {
+    key: "y",
+    get: function get() {
+      return this.dom.position().top;
+    },
+    set: function set(value) {
+      this.dom.css({ top: value });
+    }
+  }, {
+    key: "position",
+    get: function get() {
+      return [this.x, this.y];
+    },
+    set: function set(value) {
+      if (value instanceof Array && value.length >= 2) {
+        this.x = value[0];
+        this.y = value[1];
+      }
+    }
+  }, {
+    key: "width",
+    get: function get() {
+      return this.dom.width();
+    },
+    set: function set(value) {
+      this.dom.width(value);
+    }
+  }, {
+    key: "height",
+    get: function get() {
+      return this.dom.height();
+    },
+    set: function set(value) {
+      this.dom.height(value);
+    }
+  }, {
+    key: "size",
+    get: function get() {
+      return [this.width, this.height];
+    },
+    set: function set(value) {
+      if (value instanceof Array && value.length >= 2) {
+        this.width = value[0];
+        this.height = value[1];
+      }
+    }
+  }, {
+    key: "padding",
+    get: function get() {
+      return [_Utils2.default.toPt(this.dom.css('padding-top')), _Utils2.default.toPt(this.dom.css('padding-right')), _Utils2.default.toPt(this.dom.css('padding-bottom')), _Utils2.default.toPt(this.dom.css('padding-left'))];
+    },
+    set: function set(value) {
+      if (value instanceof Array) {
+        if (value.length >= 4) {
+          this.dom.css({
+            'padding-top': value[0], 'padding-right': value[1],
+            'padding-bottom': value[2], 'padding-left': value[3]
+          });
+        } else if (value.length >= 2) {
+          this.dom.css({
+            'padding-top': value[0], 'padding-right': value[1],
+            'padding-bottom': value[0], 'padding-left': value[1]
+          });
+        } else if (value.length >= 1) {
+          this.dom.css('padding', value[0]);
+        } else {
+          this.dom.css('padding', 0);
         }
-    }, {
-        key: "controller",
-        get: function get() {
-            return this._controller;
-        },
-        set: function set(object) {
-            this._controller = object;
-        }
-    }], [{
-        key: "getFromDom",
-        value: function getFromDom(jqueryObject) {
-            if (jqueryObject === null || jqueryObject.length === 0) {
-                return null;
-            }
+      } else {
+        this.dom.css('padding', value);
+      }
+    }
+  }, {
+    key: "parent",
+    get: function get() {
+      var parent = null;
 
-            if (jqueryObject instanceof jQuery) {
-                var wrapper = jqueryObject.data('--wrapper');
-                return wrapper ? wrapper : new Node(jqueryObject);
-            }
+      if (this.dom.data('--wrapper-dom')) {
+        parent = this.dom.data('--wrapper-dom').parent();
+      } else {
+        parent = this.dom.parent();
+      }
 
-            throw new Error("Node.getFromDom(): 1 argument must be an jQuery object");
-        }
-    }]);
+      if (!parent) {
+        return null;
+      }
 
-    return Node;
+      return Node.getFromDom(parent);
+    }
+  }, {
+    key: "userData",
+    get: function get() {
+      return this.dom.data('--user-data');
+    },
+    set: function set(value) {
+      this.dom.data('--user-data', value);
+    }
+  }, {
+    key: "controller",
+    get: function get() {
+      return this._controller;
+    },
+    set: function set(object) {
+      this._controller = object;
+    }
+  }], [{
+    key: "getFromDom",
+    value: function getFromDom(jqueryObject) {
+      if (jqueryObject === null || jqueryObject.length === 0) {
+        return null;
+      }
+
+      if (jqueryObject instanceof jQuery) {
+        var wrapper = jqueryObject.data('--wrapper');
+        return wrapper ? wrapper : new Node(jqueryObject);
+      }
+
+      throw new Error("Node.getFromDom(): 1 argument must be an jQuery object");
+    }
+  }]);
+
+  return Node;
 }();
 
 exports.default = Node;
 
-},{"./util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\Page.js":[function(require,module,exports){
+},{"./util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\PasswordField.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1656,153 +2069,241 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _UILoader = require('./../NX/UILoader');
+var _TextInputControl2 = require('./TextInputControl');
 
-var _UILoader2 = _interopRequireDefault(_UILoader);
-
-var _Container = require('./Container');
-
-var _Container2 = _interopRequireDefault(_Container);
+var _TextInputControl3 = _interopRequireDefault(_TextInputControl2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Page = function () {
-  function Page(uiResource) {
-    _classCallCheck(this, Page);
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    this.uiLoader = new _UILoader2.default();
-    this.ui = {};
-    this._content = null;
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-    this.load(uiResource);
+var PasswordField = function (_TextInputControl) {
+  _inherits(PasswordField, _TextInputControl);
+
+  function PasswordField() {
+    _classCallCheck(this, PasswordField);
+
+    return _possibleConstructorReturn(this, (PasswordField.__proto__ || Object.getPrototypeOf(PasswordField)).apply(this, arguments));
   }
 
-  _createClass(Page, [{
-    key: 'bindOne',
-    value: function bindOne(id, handler) {
-      var _this = this;
-
-      if (this._binds) {
-        this._binds[id] = handler;
-      } else {
-        this._binds = {};
-        this._binds[id] = handler;
-      }
-
-      if (this._content) {
-        var sub = this._content.child(id);
-
-        if (sub) {
-          for (var event in handler) {
-            if (handler.hasOwnProperty(event)) {
-              sub.on(event, function (e) {
-                handler[event].call(_this, e);
-              });
-            }
-          }
-        } else {
-          console.warn('Child \'' + id + '\' is not defined');
-        }
-      }
-    }
-  }, {
-    key: 'bind',
-    value: function bind(handlers) {
-      this._binds = handlers;
-
-      if (this._content) {
-        for (var id in handlers) {
-          if (handlers.hasOwnProperty(id)) {
-            this.bindOne(id, handlers[id]);
-          }
-        }
-      }
-    }
-  }, {
-    key: 'load',
-    value: function load(uiResource) {
-      var _this2 = this;
-
-      if (uiResource instanceof String || typeof uiResource === 'string') {
-        this.uiLoader.loadFromUrl(uiResource, function (node) {
-          _this2._content = node;
-          _this2.afterLoad();
-        }, this);
-      } else {
-        this._content = this.uiLoader.load(uiResource, this);
-        this.afterLoad();
-      }
-    }
-  }, {
-    key: 'afterLoad',
-    value: function afterLoad() {
-      if (this._binds) {
-        this.bind(this._binds);
-      }
-
-      this._refreshUi();
-
-      if (this._app) {
-        this._app.content = this._content;
-      }
-    }
-  }, {
-    key: '_refreshUi',
-    value: function _refreshUi() {
-      this.ui = {};
-
-      var self = this;
-
-      var refresh = function refresh(node) {
-        if (node instanceof _Container2.default) {
-          var children = node.children();
-
-          for (var i = 0; i < children.length; i++) {
-            var child = children[i];
-
-            if (child) {
-              var id = child.id;
-
-              if (id && !self.ui[id]) {
-                self.ui[id] = child;
-                refresh(child);
-              }
-            }
-          }
-        }
-      };
-
-      refresh(this._content);
-
-      if (this._app) {
-        window.ui = this.ui;
-      }
-    }
-  }, {
-    key: 'showInApp',
-    value: function showInApp(app) {
-      this._app = app;
-
-      if (this._content) {
-        app.content = this._content;
-        window.ui = this.ui;
-      }
-    }
-  }, {
-    key: 'content',
-    get: function get() {
-      return this._content;
+  _createClass(PasswordField, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = jQuery('<input type="password" class="form-control ux-text-input-control ux-password-field" />');
+      return dom;
     }
   }]);
 
-  return Page;
-}();
+  return PasswordField;
+}(_TextInputControl3.default);
 
-exports.default = Page;
+exports.default = PasswordField;
 
-},{"./../NX/UILoader":"E:\\apps\\ux-engine\\src\\NX\\UILoader.js","./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\TextArea.js":[function(require,module,exports){
+},{"./TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ProgressBar.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Node2 = require('./Node');
+
+var _Node3 = _interopRequireDefault(_Node2);
+
+var _Utils = require('./util/Utils');
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProgressBar = function (_Node) {
+  _inherits(ProgressBar, _Node);
+
+  function ProgressBar() {
+    _classCallCheck(this, ProgressBar);
+
+    return _possibleConstructorReturn(this, (ProgressBar.__proto__ || Object.getPrototypeOf(ProgressBar)).apply(this, arguments));
+  }
+
+  _createClass(ProgressBar, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = jQuery('<div class="progress ux-progress-bar"><div class="progress-bar" role="progressbar"></div></div>');
+
+      return dom;
+    }
+  }, {
+    key: 'progress',
+    get: function get() {
+      return _Utils2.default.toPt(this.dom.find('> .progress-bar').css('width'));
+    },
+    set: function set(value) {
+      this.dom.find('> .progress-bar').css('width', value + '%');
+    }
+  }, {
+    key: 'kind',
+    get: function get() {
+      var dom = this.dom.find('> .progress-bar');
+
+      if (dom.hasClass('progress-bar-success')) {
+        return 'success';
+      } else if (dom.hasClass('progress-bar-info')) {
+        return 'info';
+      } else if (dom.hasClass('progress-bar-warning')) {
+        return 'warning';
+      } else if (dom.hasClass('progress-bar-danger')) {
+        return 'danger';
+      }
+
+      return 'default';
+    },
+    set: function set(value) {
+      var dom = this.dom.find('> .progress-bar');
+
+      dom.removeClass('progress-bar-' + this.kind);
+      dom.addClass('progress-bar-' + value);
+    }
+  }, {
+    key: 'animated',
+    get: function get() {
+      var dom = this.dom.find('> .progress-bar');
+      return dom.hasClass('active');
+    },
+    set: function set(value) {
+      var dom = this.dom.find('> .progress-bar');
+
+      if (value) {
+        dom.addClass('active');
+      } else {
+        dom.removeClass('active');
+      }
+    }
+  }, {
+    key: 'striped',
+    get: function get() {
+      var dom = this.dom.find('> .progress-bar');
+      return dom.hasClass('progress-bar-striped');
+    },
+    set: function set(value) {
+      var dom = this.dom.find('> .progress-bar');
+
+      if (value) {
+        dom.addClass('progress-bar-striped');
+      } else {
+        dom.removeClass('progress-bar-striped');
+      }
+    }
+  }]);
+
+  return ProgressBar;
+}(_Node3.default);
+
+exports.default = ProgressBar;
+
+},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\SelectControl.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Node2 = require('./Node');
+
+var _Node3 = _interopRequireDefault(_Node2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SelectControl = function (_Node) {
+  _inherits(SelectControl, _Node);
+
+  function SelectControl(items) {
+    _classCallCheck(this, SelectControl);
+
+    var _this = _possibleConstructorReturn(this, (SelectControl.__proto__ || Object.getPrototypeOf(SelectControl)).call(this));
+
+    if (items) {
+      _this.items = items;
+    }
+    return _this;
+  }
+
+  _createClass(SelectControl, [{
+    key: 'createDom',
+    value: function createDom() {
+      var dom = jQuery('<select class="form-control ux-select-control">');
+      return dom;
+    }
+  }, {
+    key: 'items',
+    get: function get() {
+      var result = {};
+
+      this.dom.find('option').each(function () {
+        result[this.attr('value')] = $(this).text();
+      });
+
+      return result;
+    },
+    set: function set(value) {
+      this.dom.find('option').remove();
+
+      for (var key in value) {
+        if (value.hasOwnProperty(key)) {
+          this.dom.append(jQuery('<option value=\'' + key + '\'>' + value[key] + '</option>'));
+        }
+      }
+    }
+  }, {
+    key: 'selected',
+    get: function get() {
+      return this.dom.val();
+    },
+    set: function set(value) {
+      this.dom.val(value);
+    }
+  }, {
+    key: 'selectedText',
+    get: function get() {
+      return this.dom.find('option:selected').text();
+    },
+    set: function set(value) {
+      this.selected = null;
+
+      this.dom.find('option').each(function () {
+        if ($(this).text() === value) {
+          $(this).prop('selected', true);
+          return false;
+        }
+      });
+    }
+  }]);
+
+  return SelectControl;
+}(_Node3.default);
+
+exports.default = SelectControl;
+
+},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextArea.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1838,6 +2339,14 @@ var TextArea = function (_TextInputControl) {
       var dom = jQuery('<textarea class="form-control ux-text-input-control ux-text-area" />');
       return dom;
     }
+  }, {
+    key: 'wrap',
+    get: function get() {
+      return this.dom.attr('wrap');
+    },
+    set: function set(value) {
+      this.dom.attr('wrap', value);
+    }
   }]);
 
   return TextArea;
@@ -1845,7 +2354,7 @@ var TextArea = function (_TextInputControl) {
 
 exports.default = TextArea;
 
-},{"./TextInputControl":"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js"}],"E:\\apps\\ux-engine\\src\\UX\\TextField.js":[function(require,module,exports){
+},{"./TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextField.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1888,7 +2397,7 @@ var TextField = function (_TextInputControl) {
 
 exports.default = TextField;
 
-},{"./TextInputControl":"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js"}],"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js":[function(require,module,exports){
+},{"./TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1919,6 +2428,14 @@ var TextInputControl = function (_Node) {
   }
 
   _createClass(TextInputControl, [{
+    key: 'placeholder',
+    get: function get() {
+      return this.dom.attr('placeholder');
+    },
+    set: function set(value) {
+      this.dom.attr('placeholder', value);
+    }
+  }, {
     key: 'editable',
     get: function get() {
       return !this.dom.prop('readonly');
@@ -1957,7 +2474,7 @@ var TextInputControl = function (_Node) {
 
 exports.default = TextInputControl;
 
-},{"./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js"}],"E:\\apps\\ux-engine\\src\\UX\\ToggleButton.js":[function(require,module,exports){
+},{"./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ToggleButton.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2027,16 +2544,12 @@ var ToggleButton = function (_Button) {
 
 exports.default = ToggleButton;
 
-},{"./Button":"E:\\apps\\ux-engine\\src\\UX\\Button.js"}],"E:\\apps\\ux-engine\\src\\UX\\UX.js":[function(require,module,exports){
+},{"./Button":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Button.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\UX.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _Page = require('./Page');
-
-var _Page2 = _interopRequireDefault(_Page);
 
 var _Node = require('./Node');
 
@@ -2062,6 +2575,18 @@ var _Checkbox = require('./Checkbox');
 
 var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
+var _Combobox = require('./Combobox');
+
+var _Combobox2 = _interopRequireDefault(_Combobox);
+
+var _Listbox = require('./Listbox');
+
+var _Listbox2 = _interopRequireDefault(_Listbox);
+
+var _ProgressBar = require('./ProgressBar');
+
+var _ProgressBar2 = _interopRequireDefault(_ProgressBar);
+
 var _Container = require('./Container');
 
 var _Container2 = _interopRequireDefault(_Container);
@@ -2073,6 +2598,14 @@ var _HBox2 = _interopRequireDefault(_HBox);
 var _VBox = require('./VBox');
 
 var _VBox2 = _interopRequireDefault(_VBox);
+
+var _ListView = require('./ListView');
+
+var _ListView2 = _interopRequireDefault(_ListView);
+
+var _FragmentPane = require('./FragmentPane');
+
+var _FragmentPane2 = _interopRequireDefault(_FragmentPane);
 
 var _AnchorPane = require('./AnchorPane');
 
@@ -2090,6 +2623,10 @@ var _TextField = require('./TextField');
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
+var _PasswordField = require('./PasswordField');
+
+var _PasswordField2 = _interopRequireDefault(_PasswordField);
+
 var _TextArea = require('./TextArea');
 
 var _TextArea2 = _interopRequireDefault(_TextArea);
@@ -2105,19 +2642,18 @@ var _Utils2 = _interopRequireDefault(_Utils);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  Page: _Page2.default,
   Node: _Node2.default,
   ImageView: _ImageView2.default,
   Button: _Button2.default, ToggleButton: _ToggleButton2.default,
   Labeled: _Labeled2.default,
-  Label: _Label2.default, Checkbox: _Checkbox2.default,
-  TextInputControl: _TextInputControl2.default, TextField: _TextField2.default, TextArea: _TextArea2.default,
-  Container: _Container2.default, HBox: _HBox2.default, VBox: _VBox2.default, AnchorPane: _AnchorPane2.default,
+  Label: _Label2.default, Checkbox: _Checkbox2.default, Combobox: _Combobox2.default, Listbox: _Listbox2.default, ProgressBar: _ProgressBar2.default,
+  TextInputControl: _TextInputControl2.default, TextField: _TextField2.default, PasswordField: _PasswordField2.default, TextArea: _TextArea2.default,
+  Container: _Container2.default, HBox: _HBox2.default, VBox: _VBox2.default, AnchorPane: _AnchorPane2.default, FragmentPane: _FragmentPane2.default, ListView: _ListView2.default,
 
   Font: _Font2.default
 };
 
-},{"./AnchorPane":"E:\\apps\\ux-engine\\src\\UX\\AnchorPane.js","./Button":"E:\\apps\\ux-engine\\src\\UX\\Button.js","./Checkbox":"E:\\apps\\ux-engine\\src\\UX\\Checkbox.js","./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js","./HBox":"E:\\apps\\ux-engine\\src\\UX\\HBox.js","./ImageView":"E:\\apps\\ux-engine\\src\\UX\\ImageView.js","./Label":"E:\\apps\\ux-engine\\src\\UX\\Label.js","./Labeled":"E:\\apps\\ux-engine\\src\\UX\\Labeled.js","./Node":"E:\\apps\\ux-engine\\src\\UX\\Node.js","./Page":"E:\\apps\\ux-engine\\src\\UX\\Page.js","./TextArea":"E:\\apps\\ux-engine\\src\\UX\\TextArea.js","./TextField":"E:\\apps\\ux-engine\\src\\UX\\TextField.js","./TextInputControl":"E:\\apps\\ux-engine\\src\\UX\\TextInputControl.js","./ToggleButton":"E:\\apps\\ux-engine\\src\\UX\\ToggleButton.js","./VBox":"E:\\apps\\ux-engine\\src\\UX\\VBox.js","./paint/Font":"E:\\apps\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\VBox.js":[function(require,module,exports){
+},{"./AnchorPane":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\AnchorPane.js","./Button":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Button.js","./Checkbox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Checkbox.js","./Combobox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Combobox.js","./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js","./FragmentPane":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\FragmentPane.js","./HBox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\HBox.js","./ImageView":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ImageView.js","./Label":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Label.js","./Labeled":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Labeled.js","./ListView":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ListView.js","./Listbox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Listbox.js","./Node":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Node.js","./PasswordField":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\PasswordField.js","./ProgressBar":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ProgressBar.js","./TextArea":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextArea.js","./TextField":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextField.js","./TextInputControl":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\TextInputControl.js","./ToggleButton":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\ToggleButton.js","./VBox":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\VBox.js","./paint/Font":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\paint\\Font.js","./util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\VBox.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2149,6 +2685,7 @@ var VBox = function (_Container) {
     var _this = _possibleConstructorReturn(this, (VBox.__proto__ || Object.getPrototypeOf(VBox)).apply(this, arguments));
 
     _this.spacing = 0;
+    _this.align = ['top', 'left'];
     return _this;
   }
 
@@ -2157,7 +2694,6 @@ var VBox = function (_Container) {
     value: function createDom() {
       var dom = _get(VBox.prototype.__proto__ || Object.getPrototypeOf(VBox.prototype), 'createDom', this).call(this);
       dom.addClass('ux-v-box');
-
       return dom;
     }
   }, {
@@ -2165,6 +2701,18 @@ var VBox = function (_Container) {
     value: function createSlotDom(object) {
       var dom = _get(VBox.prototype.__proto__ || Object.getPrototypeOf(VBox.prototype), 'createSlotDom', this).call(this, object);
       return dom;
+    }
+  }, {
+    key: 'fitWidth',
+    get: function get() {
+      return this.dom.hasClass('ux-m-fit-width');
+    },
+    set: function set(value) {
+      if (value) {
+        this.dom.addClass('ux-m-fit-width');
+      } else {
+        this.dom.removeClass('ux-m-fit-width');
+      }
     }
   }, {
     key: 'spacing',
@@ -2178,54 +2726,6 @@ var VBox = function (_Container) {
       slots.css('margin-bottom', value + 'px');
       slots.last().css('margin-bottom', 0);
     }
-  }, {
-    key: 'horAlign',
-    get: function get() {
-      var align = this.dom.css('align-items');
-
-      switch (align) {
-        case 'flex-start':
-          return 'left';
-        case 'flex-end':
-          return 'right';
-      }
-
-      return align;
-    },
-    set: function set(value) {
-      switch (value) {
-        case 'left':
-          value = 'flex-start';break;
-        case 'right':
-          value = 'flex-end';break;
-      }
-
-      this.dom.css('align-items', value);
-    }
-  }, {
-    key: 'verAlign',
-    get: function get() {
-      var align = this.dom.css('justify-content');
-
-      switch (align) {
-        case 'flex-start':
-          return 'top';
-        case 'flex-end':
-          return 'bottom';
-      }
-
-      return align ? align : 'top';
-    },
-    set: function set(value) {
-      switch (value) {
-        case 'top':
-          value = 'flex-start';break;
-        case 'bottom':
-          value = 'flex-end';break;
-      }
-
-      this.dom.css('justify-content', value);
-    }
   }]);
 
   return VBox;
@@ -2233,12 +2733,14 @@ var VBox = function (_Container) {
 
 exports.default = VBox;
 
-},{"./Container":"E:\\apps\\ux-engine\\src\\UX\\Container.js"}],"E:\\apps\\ux-engine\\src\\UX\\paint\\Font.js":[function(require,module,exports){
+},{"./Container":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\Container.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\paint\\Font.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2337,6 +2839,26 @@ var Font = function () {
         if (font.underline) {
           dom.css('text-decoration', 'underline');
         }
+      } else if ((typeof font === 'undefined' ? 'undefined' : _typeof(font)) === 'object') {
+        if (font['family']) {
+          dom.css('font-family', font.family);
+        }
+
+        if (font['size']) {
+          dom.css('font-size', font.size);
+        }
+
+        if (font['bold']) {
+          dom.css('font-weight', 'bold');
+        }
+
+        if (font['italic']) {
+          dom.css('font-style', 'italic');
+        }
+
+        if (font['underline']) {
+          dom.css('text-decoration', 'underline');
+        }
       }
     }
   }, {
@@ -2367,7 +2889,7 @@ var Font = function () {
 
 exports.default = Font;
 
-},{"./../util/Utils":"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js"}],"E:\\apps\\ux-engine\\src\\UX\\util\\Utils.js":[function(require,module,exports){
+},{"./../util/Utils":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js"}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\util\\Utils.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2410,7 +2932,7 @@ var Utils = function () {
 
 exports.default = Utils;
 
-},{}],"E:\\apps\\ux-engine\\src\\lib.js":[function(require,module,exports){
+},{}],"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\lib.js":[function(require,module,exports){
 'use strict';
 
 var _NX = require('./NX/NX');
@@ -2426,6 +2948,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 window.NX = _NX2.default;
 window.UX = _UX2.default;
 
-},{"./NX/NX":"E:\\apps\\ux-engine\\src\\NX\\NX.js","./UX/UX":"E:\\apps\\ux-engine\\src\\UX\\UX.js"}]},{},["E:\\apps\\ux-engine\\src\\lib.js"])
+},{"./NX/NX":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\NX\\NX.js","./UX/UX":"C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\UX\\UX.js"}]},{},["C:\\Users\\zaitsev.REKSOFT\\IdeaProjects\\ux-engine\\src\\lib.js"])
 
 //# sourceMappingURL=dnext-engine-0.1.0.js.map

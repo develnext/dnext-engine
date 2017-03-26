@@ -11,6 +11,7 @@ class Labeled extends Node {
         this.graphicTextGap = 4;
         this.graphic = graphic;
         this.text = text;
+        this.align = ['center', 'center'];
     }
 
     get font() {
@@ -18,7 +19,54 @@ class Labeled extends Node {
     }
 
     set font(value) {
-      Font.applyToDom(value);
+      Font.applyToDom(this.dom, value);
+    }
+
+    get align() {
+      return [this.verAlign, this.horAlign];
+    }
+
+    set align(value) {
+      if (value instanceof Array && value.length >= 2) {
+        this.horAlign = value[1];
+        this.verAlign = value[0];
+      }
+    }
+
+    get horAlign() {
+      if (this.dom.hasClass('ux-m-halign-right')) {
+        return 'right';
+      } else if (this.hasClass('ux-m-halign-center')) {
+        return 'center';
+      }
+
+      return 'left';
+    }
+
+    set horAlign(value) {
+      this.dom.removeClass('ux-m-halign-left');
+      this.dom.removeClass('ux-m-halign-right');
+      this.dom.removeClass('ux-m-halign-center');
+
+      this.dom.addClass('ux-m-halign-' + value);
+    }
+
+    get verAlign() {
+      if (this.dom.hasClass('ux-m-valign-bottom')) {
+        return 'bottom';
+      } else if (this.hasClass('ux-m-valign-center')) {
+        return 'center';
+      }
+
+      return 'top';
+    }
+
+    set verAlign(value) {
+      this.dom.removeClass('ux-m-valign-top');
+      this.dom.removeClass('ux-m-valign-bottom');
+      this.dom.removeClass('ux-m-valign-center');
+
+      this.dom.addClass('ux-m-valign-' + value);
     }
 
     get text() {

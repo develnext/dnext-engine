@@ -37,6 +37,14 @@ class Node {
       }
     }
 
+    get opacity() {
+      return this.dom.css('opacity');
+    }
+
+    set opacity(value) {
+      this.dom.css('opacity', value);
+    }
+
     get enabled() {
       return !this.dom.prop("disabled");
     }
@@ -48,9 +56,6 @@ class Node {
     get focused() {
       return this.dom.is(':focus');
     }
-
-    get style() { return this.dom.attr('style') }
-    set style(value) { this.dom.attr('style', value) }
 
     get x() { return this.dom.position().left; }
     set x(value) { this.dom.css({left: value}); }
@@ -222,7 +227,7 @@ class Node {
       var wrapperDom = this.dom.data('--wrapper-dom');
 
       if (wrapperDom) {
-        wrapperDom.dom.remove();
+        wrapperDom.remove();
       } else {
         this.dom.detach();
       }
@@ -252,10 +257,6 @@ class Node {
       });
 
       return this;
-    }
-
-    bind(handlers) {
-
     }
 
     off(event) {

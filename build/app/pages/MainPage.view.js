@@ -1,49 +1,26 @@
 export default {
-    _: 'HBox',
-
+    _: 'VBox',
     align: ['center', 'center'],
     padding: 20,
     spacing: 10,
-
+    width: 500,
+    fitWidth: true,
     _content: [
-      {_: 'Button',
-        id: 'button1',
-        text: '<b>Hello</b> World',
-        textType: 'html',
-        contentDisplay: 'left',
-        graphicTextGap: 10,
-
-        graphic: 'https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/16x16/Sunny.png',
-        on: {
-          click: 'doButton1Click'
-        }
-      },
-      {_: 'ImageView',
-        id: 'imageView',
-        size: [300, 300],
-        centered: true,
-        source: 'https://cdn1.iconfinder.com/data/icons/ampola-final-by-ampeross/256/html_icon.png'
-      },
-      {_: 'Checkbox',
-        id: 'checkbox',
-        text: 'Check It!',
-        checked: true,
-        on: {
-          click: 'doCheckboxClick'
-        }
-      },
-      {_: 'VBox',
-        align: ['left', 'center'],
-        padding: [0, 0, 0, 30],
-        spacing: 10,
-        width: 400,
-        height: 300,
+      {_: 'ListView', id: 'menu',
+        spacing: 20,
+        on: {action: 'doMenuAction'},
+        horAlign: 'right',
         _content: [
-          {_: 'Label', text: 'Hello Mike!'},
-          {_: 'Label', text: '<b>Peace!</b>', textType: 'html'},
-          {_: 'TextField', width: '100%'},
-          {_: 'Button', text: 'Click'}
+          {_: 'Label', text: 'First <b>Step</b>', textType: 'html', id: 'firstStep', on: {click: 'doFirstStep'}},
+          {_: 'Label', text: 'Second Step', id: 'secondStep', on: {click: 'doSecondStep'}},
+          {_: 'Label', text: 'Last Step', id: 'lastStep', on: {click: 'doLastStep'}}
         ]
+      },
+      {_: 'Button', text: 'click', kind: 'success', font: {bold: true}, on: {click: 'doClick'}},
+      {_: 'Listbox', items: ['One', 'Two', 'Three']},
+      {_: 'FragmentPane',
+        id: 'fragment',
+        content: 'OtherPage'
       }
     ]
 }

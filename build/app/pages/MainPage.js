@@ -1,12 +1,17 @@
 import View from './MainPage.view';
 
-export class MainPage extends UX.Page {
+export class MainPage extends NX.Fragment {
   constructor() {
     super(View);
   }
 
-  doButton1Click() {
-    ui.imageView.source = 'https://cdn3.iconfinder.com/data/icons/aquanox/globe.png';
+  doMenuAction(e) {
+
+  }
+
+  doClick() {
+    this.menu.selectedIndex += 1;
+    this.menu.removeByIndex(0);
   }
 
   doImageViewClick() {
@@ -14,6 +19,6 @@ export class MainPage extends UX.Page {
   }
 
   doCheckboxClick(e) {
-    ui.button1.enabled = e.sender.checked;
+    this.button1.enabled = e.sender.checked;
   }
 }

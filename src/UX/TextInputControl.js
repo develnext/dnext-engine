@@ -1,7 +1,15 @@
 import Node from './Node';
 
 class TextInputControl extends Node {
-  
+
+  get placeholder() {
+    return this.dom.attr('placeholder');
+  }
+
+  set placeholder(value) {
+    this.dom.attr('placeholder', value);
+  }
+
   get editable() {
     return !this.dom.prop('readonly');
   }

@@ -1,13 +1,14 @@
-import UILoader from './../NX/UILoader';
-import Container from './Container';
+import UILoader from './UILoader';
+import Container from './../UX/Container';
+import Utils from './../UX/util/Utils';
 
-class Page {
+class Fragment {
   constructor(uiResource) {
     this.uiLoader = new UILoader();
     this.ui = {};
     this._content = null;
 
-    this.load(uiResource);
+    this.loadUi(uiResource);
   }
 
   get content() {
@@ -51,7 +52,7 @@ class Page {
     }
   }
 
-  load(uiResource) {
+  loadUi(uiResource) {
     if (uiResource instanceof String || typeof uiResource === 'string') {
       this.uiLoader.loadFromUrl(uiResource, (node) => {
           this._content = node;
@@ -70,12 +71,20 @@ class Page {
 
     this._refreshUi();
 
-    if (this._app) {
-      this._app.content = this._content;
+    if (this._rootDom) {
+      this._rootDom.empty().append(this._content.dom);
     }
   }
 
   _refreshUi() {
+    if (this.ui) {
+      for (var key in this) {
+        if (this.ui.hasOwnProperty(key)) {
+          delete this[key];
+        }
+      }
+    }
+
     this.ui = {};
 
     var self = this;
@@ -92,8 +101,9 @@ class Page {
 
             if (id && !self.ui[id]) {
               self.ui[id] = child;
-              refresh(child);
             }
+
+            refresh(child);
           }
         }
       }
@@ -101,19 +111,42 @@ class Page {
 
     refresh(this._content);
 
-    if (this._app) {
-      window.ui = this.ui;
+    for (var key in this.ui) {
+      if (this.ui.hasOwnProperty(key)) {
+        this[key] = this.ui[key];
+      }
     }
   }
 
-  showInApp(app) {
-    this._app = app;
+  load(fragment) {
+    if (fragment instanceof Fragment) {
+      fragment.parent = this;
+      fragment.render(this._rootDom);
+    } else {
+      console.warn('load(): 1 argument must be an fragment instance');
+    }
+  }
+
+  render(root) {
+    var dom;
+
+    if (Utils.isElement(root)) {
+      dom = jQuery(root);
+    } else {
+      if (root instanceof jQuery) {
+        dom = root;
+      } else {
+        dom = jQuery(document).find(root).first();
+      }
+    }
+
+    this._rootDom = dom;
 
     if (this._content) {
-      app.content = this._content;
-      window.ui = this.ui;
+      dom.children().detach();
+      dom.append(this._content.dom);
     }
   }
 }
 
-export default Page;
+export default Fragment;
